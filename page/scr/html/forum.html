@@ -24,29 +24,66 @@
     <main class="container forum-container">
         <header class="forum-header">
             <h1>Fórum da Comunidade</h1>
-            <p>Espaço para discussões sobre liberdade de software e colaboração.</p>
+            <p class="subtitle">Espaço para discussões sobre liberdade de software e colaboração.</p>
+            
+            <div class="search-wrapper">
+                <input type="text" id="forum-search" placeholder="Pesquisar tópicos ou tags...">
+                <svg class="search-icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            </div>
         </header>
 
-        <div class="forum-topics">
-            <div class="topic-card">
-                <div class="topic-info">
-                    <h3>Dúvidas sobre a instalação do TasmaOS</h3>
-                    <p>Iniciado por @dev_freedom em Geral</p>
+        <div class="forum-layout">
+            <aside class="forum-sidebar">
+                <button class="btn-new-topic">Iniciar Discussão</button>
+                <div class="sidebar-section">
+                    <h4>Categorias</h4>
+                    <ul class="category-list">
+                        <li class="active"><span>#</span> Tudo</li>
+                        <li><span>#</span> Desenvolvimento</li>
+                        <li><span>#</span> Kernel Freedom</li>
+                        <li><span>#</span> Hittogram UI</li>
+                        <li><span>#</span> Suporte Hardware</li>
+                    </ul>
                 </div>
-                <div class="topic-stats">
-                    <span>15 respostas</span>
-                    <span>2h atrás</span>
-                </div>
-            </div>
+            </aside>
 
-            <div class="topic-card">
-                <div class="topic-info">
-                    <h3>Sugestões de plugins para o Tasma Code</h3>
-                    <p>Iniciado por @code_master em Desenvolvimento</p>
-                </div>
-                <div class="topic-stats">
-                    <span>42 respostas</span>
-                    <span>5h atrás</span>
+            <div class="forum-main">
+                <div class="forum-topics" id="topics-list">
+                    <div class="topic-card">
+                        <div class="topic-info">
+                            <span class="category-tag">Geral</span>
+                            <h3>Dúvidas sobre a instalação do TasmaOS no kernel Freedom</h3>
+                            <p>Iniciado por <span class="user-mention">@dev_freedom</span> • Há 2 horas</p>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="stat">
+                                <strong>15</strong>
+                                <span>respostas</span>
+                            </div>
+                            <div class="stat">
+                                <strong>1.2k</strong>
+                                <span>vistas</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="topic-card">
+                        <div class="topic-info">
+                            <span class="category-tag">Desenvolvimento</span>
+                            <h3>Sugestões de plugins essenciais para o Tasma Code</h3>
+                            <p>Iniciado por <span class="user-mention">@code_master</span> • Há 5 horas</p>
+                        </div>
+                        <div class="topic-meta">
+                            <div class="stat">
+                                <strong>42</strong>
+                                <span>respostas</span>
+                            </div>
+                            <div class="stat">
+                                <strong>3.5k</strong>
+                                <span>vistas</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

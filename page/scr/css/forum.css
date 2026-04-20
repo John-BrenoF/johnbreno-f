@@ -3,6 +3,61 @@
     padding-top: 50px;
 }
 
+.forum-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.forum-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.btn-new-topic {
+    background: linear-gradient(90deg, #00d4ff, #8a2be2);
+    border: none;
+    padding: 15px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-new-topic:hover {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.sidebar-section h4 {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #444;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.category-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category-list li {
+    color: #888;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.category-list li:hover, .category-list li.active {
+    color: #00d4ff;
+}
+
 .forum-header {
     margin-bottom: 50px;
     text-align: left;
@@ -14,6 +69,46 @@
     margin-bottom: 10px;
 }
 
+.forum-header .subtitle {
+    color: #888;
+    margin-bottom: 30px;
+}
+
+/* Estilos da Barra de Busca */
+.search-wrapper {
+    position: relative;
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+#forum-search {
+    width: 100%;
+    background: #0a0a0a;
+    border: 1px solid #222;
+    padding: 15px 20px 15px 45px;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#forum-search:focus {
+    border-color: #00d4ff;
+    box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    fill: #444;
+    pointer-events: none;
+}
+
+/* Estilos dos Cards de Tópicos */
 .topic-card {
     background: #080808;
     border: 1px solid #1a1a1a;
@@ -28,9 +123,39 @@
 .topic-card:hover {
     border-color: #00d4ff;
     background: #0a0a0a;
+    transform: translateX(5px);
 }
 
 .topic-info h3 { color: #00d4ff; margin-bottom: 5px; }
-.topic-info p { color: #666; font-size: 0.85rem; }
-.topic-stats { text-align: right; color: #444; font-size: 0.8rem; }
-.topic-stats span { display: block; }
+
+.category-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    background: #111;
+    padding: 2px 8px;
+    color: #666;
+    border-radius: 2px;
+    margin-bottom: 8px;
+    display: inline-block;
+    letter-spacing: 1px;
+}
+
+.user-mention {
+    color: #888;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.topic-card:hover .user-mention { color: #fff; }
+
+.topic-info p { color: #555; font-size: 0.85rem; }
+
+.topic-meta {
+    display: flex;
+    gap: 30px;
+    text-align: center;
+}
+
+.topic-meta .stat { display: flex; flex-direction: column; }
+.topic-meta .stat strong { color: #fff; font-size: 1.1rem; }
+.topic-meta .stat span { color: #444; font-size: 0.7rem; text-transform: uppercase; }
