@@ -164,15 +164,69 @@
     transform: translateX(5px);
 }
 
-/* Sistema de Votos no Card */
-.topic-meta .vote-btn {
+/* Sistema de Reações */
+.vote-group {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.vote-btn {
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
     background: #111;
+    display: flex;
+    align-items: center;
+    gap: 6px;
     transition: 0.2s;
+    font-size: 0.8rem;
+    border: 1px solid #222;
 }
-.topic-meta .vote-btn:hover { background: #222; color: #00d4ff; }
+
+.vote-icon {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+}
+
+.vote-btn.like:hover { border-color: #00ff88; color: #00ff88; fill: #00ff88; }
+.vote-btn.dislike:hover { border-color: #ff4b4b; color: #ff4b4b; fill: #ff4b4b; }
+
+/* Estilos para Upload e Preview */
+.media-input-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.or-divider { color: #444; font-size: 0.8rem; }
+
+.btn-file-label {
+    background: #111;
+    border: 1px solid #333;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.btn-file-label:hover { border-color: #00d4ff; color: #00d4ff; }
+
+#media-preview-container {
+    margin: 10px 0;
+    border: 1px solid #222;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#preview-img {
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+    border-radius: 2px;
+}
 
 .forum-controls {
     display: flex;
@@ -276,6 +330,23 @@
 .reply-item { background: #0a0a0a; padding: 15px; border-bottom: 1px solid #111; margin-bottom: 10px; }
 .reply-item p { font-size: 0.9rem; color: #ccc; }
 .reply-item small { color: #444; }
+
+/* Mecânicas de Mídia */
+.topic-media-content {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #222;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.reply-item {
+    border-left: 2px solid #1a1a1a;
+    padding-left: 20px;
+    border-radius: 0;
+}
 
 /* Visualização de Tópico Estilo Página */
 .topic-full-view {

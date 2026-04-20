@@ -52,7 +52,7 @@
                         <div class="stat-item"><span>Tópicos:</span> <strong id="stat-topics">0</strong></div>
                         <div class="stat-item"><span>Membros:</span> <strong>1.2k</strong></div>
                         <div class="stat-item"><span>Online:</span> <strong class="online-dot">142</strong></div>
-                    </ul>
+                    </div>
                 </div>
             </aside>
 
@@ -83,6 +83,15 @@
                     <option value="Kernel Freedom">Kernel Freedom</option>
                     <option value="Hittogram UI">Hittogram UI</option>
                 </select>
+                <div class="media-input-group">
+                    <input type="url" id="topic-media" placeholder="URL da Imagem (opcional)">
+                    <span class="or-divider">ou</span>
+                    <label for="topic-file-input" class="btn-file-label">📤 Upload Local</label>
+                    <input type="file" id="topic-file-input" accept="image/*" style="display:none">
+                </div>
+                <div id="media-preview-container" style="display:none;">
+                    <img id="preview-img" src="" alt="Preview">
+                </div>
                 <textarea id="topic-content" placeholder="O que você deseja compartilhar?" required></textarea>
                 <button type="submit" class="btn-new-topic">Publicar Tópico</button>
             </form>
