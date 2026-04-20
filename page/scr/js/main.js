@@ -13,4 +13,11 @@ document.addEventListener('DOMContentLoaded', () => {
             content.style.transform = 'translateY(0)';
         }, 300);
     }
+
+    // Efeito de brilho palavra por palavra
+    const textElements = document.querySelectorAll('.about-content p, .service-item p');
+    textElements.forEach(el => {
+        const words = el.innerText.split(' ');
+        el.innerHTML = words.map(word => `<span class="glow-word">${word}</span>`).join(' ');
+    });
 });
