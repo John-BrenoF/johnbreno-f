@@ -34,60 +34,74 @@
 
         <div class="forum-layout">
             <aside class="forum-sidebar">
-                <button class="btn-new-topic">Iniciar Discussão</button>
+                <button class="btn-new-topic" id="open-new-topic">Iniciar Discussão</button>
+                
                 <div class="sidebar-section">
                     <h4>Categorias</h4>
-                    <ul class="category-list">
-                        <li class="active"><span>#</span> Tudo</li>
-                        <li><span>#</span> Desenvolvimento</li>
-                        <li><span>#</span> Kernel Freedom</li>
-                        <li><span>#</span> Hittogram UI</li>
-                        <li><span>#</span> Suporte Hardware</li>
+                    <ul class="category-list" id="category-filter">
+                        <li class="active" data-cat="Tudo"><span>#</span> Tudo</li>
+                        <li data-cat="Desenvolvimento"><span>#</span> Desenvolvimento</li>
+                        <li data-cat="Kernel Freedom"><span>#</span> Kernel Freedom</li>
+                        <li data-cat="Hittogram UI"><span>#</span> Hittogram UI</li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h4>Estatísticas</h4>
+                    <div class="stats-widget">
+                        <div class="stat-item"><span>Tópicos:</span> <strong id="stat-topics">0</strong></div>
+                        <div class="stat-item"><span>Membros:</span> <strong>1.2k</strong></div>
+                        <div class="stat-item"><span>Online:</span> <strong class="online-dot">142</strong></div>
                     </ul>
                 </div>
             </aside>
 
-            <div class="forum-main">
-                <div class="forum-topics" id="topics-list">
-                    <div class="topic-card">
-                        <div class="topic-info">
-                            <span class="category-tag">Geral</span>
-                            <h3>Dúvidas sobre a instalação do TasmaOS no kernel Freedom</h3>
-                            <p>Iniciado por <span class="user-mention">@dev_freedom</span> • Há 2 horas</p>
-                        </div>
-                        <div class="topic-meta">
-                            <div class="stat">
-                                <strong>15</strong>
-                                <span>respostas</span>
-                            </div>
-                            <div class="stat">
-                                <strong>1.2k</strong>
-                                <span>vistas</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="topic-card">
-                        <div class="topic-info">
-                            <span class="category-tag">Desenvolvimento</span>
-                            <h3>Sugestões de plugins essenciais para o Tasma Code</h3>
-                            <p>Iniciado por <span class="user-mention">@code_master</span> • Há 5 horas</p>
-                        </div>
-                        <div class="topic-meta">
-                            <div class="stat">
-                                <strong>42</strong>
-                                <span>respostas</span>
-                            </div>
-                            <div class="stat">
-                                <strong>3.5k</strong>
-                                <span>vistas</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="forum-main" id="forum-main-content">
+                <!-- Controles de Ordenação -->
+                <div class="forum-controls">
+                    <span id="topic-count">Mostrando 0 tópicos</span>
+                    <select id="sort-topics">
+                        <option value="newest">Mais Recentes</option>
+                        <option value="popular">Mais Votados</option>
+                    </select>
                 </div>
+                <div class="forum-topics" id="topics-list"></div>
             </div>
         </div>
     </main>
+
+    <!-- Modal: Novo Tópico -->
+    <div id="modal-new-topic" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Nova Discussão</h2>
+            <form id="form-new-topic">
+                <input type="text" id="topic-title" placeholder="Título da discussão" required>
+                <select id="topic-category" required>
+                    <option value="Geral">Geral</option>
+                    <option value="Desenvolvimento">Desenvolvimento</option>
+                    <option value="Kernel Freedom">Kernel Freedom</option>
+                    <option value="Hittogram UI">Hittogram UI</option>
+                </select>
+                <textarea id="topic-content" placeholder="O que você deseja compartilhar?" required></textarea>
+                <button type="submit" class="btn-new-topic">Publicar Tópico</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Template de Visualização do Tópico (Escondido por padrão) -->
+    <div id="topic-view-container" style="display: none;">
+        <button class="btn-back" id="back-to-list">&larr; Voltar para a lista</button>
+        <div id="topic-detail-content"></div>
+        <div class="replies-section">
+            <h3>Discussão</h3>
+            <div id="replies-list"></div>
+            <form id="form-reply">
+                <textarea id="reply-content" placeholder="Sua opinião importa..." required></textarea>
+                <button type="submit" class="btn-new-topic">Enviar Resposta</button>
+            </form>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <p>&copy; 2026 Tasma-tech. Comunidade Open Source.</p>
