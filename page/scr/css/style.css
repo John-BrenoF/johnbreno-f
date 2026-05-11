@@ -70,6 +70,54 @@ body.loading {
     text-shadow: 0 0 5px #fff;
 }
 
+#boot-progress {
+    color: #fff;
+    font-family: monospace;
+    font-size: 1rem;
+    margin-top: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Name Prompt Styles */
+#name-prompt-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 21000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Changa', sans-serif;
+}
+
+.prompt-box {
+    text-align: center;
+}
+
+.prompt-text {
+    color: #666;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+#user-name-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s, text-shadow 0.3s;
+    font-family: 'Changa', sans-serif;
+}
+
+#user-name-input:focus {
+    border-bottom-color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
 /* Scanlines sutis por cima de tudo */
 body::before {
     content: "";

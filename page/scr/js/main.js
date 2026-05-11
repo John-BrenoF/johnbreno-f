@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const bootLoader = document.getElementById('boot-loader');
     const bootTerminal = document.getElementById('boot-terminal');
     const bootAscii = document.getElementById('boot-ascii');
+    const bootProgress = document.getElementById('boot-progress');
+    const progressContainer = document.getElementById('boot-progress-container');
     
     const bootLines = [
         { text: "[  0.000000] Initializing JOHN-BRENOF BIOS v4.0...", type: "gray" },
@@ -15,6 +17,36 @@ document.addEventListener('DOMContentLoaded', () => {
         { text: "[  2.503921] Starting Graphical Environment...", type: "gray" },
         { text: "CORE_SYSTEM_READY > EXECUTE PORTFOLIO_UI", type: "highlight" }
     ];
+
+    async function showProgressBar() {
+        progressContainer.style.display = 'block';
+        const width = 30;
+        for (let i = 0; i <= width; i++) {
+            const percent = Math.round((i / width) * 100);
+            const bar = "#".repeat(i) + ".".repeat(width - i);
+            bootProgress.textContent = `LOADING_MODULES: [${bar}] ${percent}%`;
+            await new Promise(r => setTimeout(r, 40));
+        }
+    }
+
+    async function askName() {
+        const overlay = document.getElementById('name-prompt-overlay');
+        const input = document.getElementById('user-name-input');
+        
+        overlay.style.display = 'flex';
+        input.focus();
+
+        return new Promise(resolve => {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && input.value.trim() !== '') {
+                    const name = input.value.trim();
+                    localStorage.setItem('jb_portfolio_user', name);
+                    overlay.style.opacity = '0';
+                    setTimeout(() => { overlay.style.display = 'none'; resolve(name); }, 500);
+                }
+            });
+        });
+    }
 
     async function runBootSequence() {
         // Mostra o ASCII primeiro
@@ -33,12 +65,42 @@ document.addEventListener('DOMContentLoaded', () => {
             await new Promise(resolve => setTimeout(resolve, Math.random() * 200 + 100));
         }
 
-        // Finalização
-        setTimeout(() => {
+        await showProgressBar();
+
+        // Verifica se já sabemos o nome
+        let userName = localStorage.getItem('jb_portfolio_user');
+        
+        if (!userName) {
             bootLoader.style.opacity = '0';
-            document.body.classList.remove('loading');
-            setTimeout(() => bootLoader.style.display = 'none', 800);
-        }, 1000);
+            setTimeout(() => bootLoader.style.display = 'none', 500);
+            userName = await askName();
+            
+            // Segunda animação ASCII de boas-vindas
+            bootLoader.style.display = 'flex';
+            bootLoader.style.opacity = '1';
+            bootTerminal.innerHTML = "";
+            progressContainer.style.display = 'none';
+            bootAscii.innerHTML = `
+      ██╗    ██╗███████╗██╗      ██████╗ ██████╗ ███╗   ███╗███████╗
+      ██║    ██║██╔════╝██║     ██╔════╝██╔═══██╗████╗ ████║██╔════╝
+      ██║ █╗ ██║█████╗  ██║     ██║     ██║   ██║██╔████╔██║█████╗  
+      ██║███╗██║██╔══╝  ██║     ██║     ██║   ██║██║╚██╔╝██║██╔══╝  
+      ╚███╔███╔╝███████╗███████╗╚██████╗╚██████╔╝██║ ╚═╝ ██║███████╗
+       ╚══╝╚══╝ ╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝`;
+            
+            const p = document.createElement('p');
+            p.className = "boot-line highlight";
+            p.style.fontSize = "1.5rem";
+            p.style.textAlign = "center";
+            p.textContent = `ACCESS_GRANTED: WELCOME, ${userName.toUpperCase()}`;
+            bootTerminal.appendChild(p);
+            
+            await new Promise(r => setTimeout(r, 2000));
+        }
+
+        bootLoader.style.opacity = '0';
+        document.body.classList.remove('loading');
+        setTimeout(() => bootLoader.style.display = 'none', 800);
     }
 
     runBootSequence();
