@@ -54,6 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(item);
     });
 
+    // Scroll Reveal para Ícones de Skills
+    const skillIcons = document.querySelectorAll('.skills-stack img');
+    skillIcons.forEach((icon, index) => {
+        // Delay escalonado para criar o efeito de "onda" na entrada
+        icon.style.transitionDelay = `${(index % 8) * 0.05}s`; 
+        observer.observe(icon);
+    });
+
     // Efeito de brilho palavra por palavra + Chance de Glitch no Hover
     const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label');
     textElements.forEach(el => {
