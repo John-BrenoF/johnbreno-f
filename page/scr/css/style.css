@@ -248,6 +248,19 @@ h1, h2, h3, .logo {
     transform: translateZ(40px); /* Efeito de profundidade no nome */
 }
 
+.profile-stats-mini {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    transform: translateZ(30px);
+    font-family: 'Changa', monospace;
+}
+
+.profile-stats-mini span {
+    font-size: 0.8rem !important;
+    color: rgba(255, 255, 255, 0.5);
+}
+
 .profile-bio {
     font-size: 0.9rem;
     color: #666;
@@ -279,6 +292,123 @@ h1, h2, h3, .logo {
     -webkit-text-fill-color: transparent;
 }
 
+/* Seção de Habilidades */
+.skills-section {
+    padding: 100px 10%;
+    background: #000;
+    text-align: center;
+}
+
+.skills-content {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.skills-stack img {
+    max-width: 100%;
+    filter: grayscale(1) brightness(0.8) drop-shadow(0 0 10px rgba(255, 255, 255, 0.05));
+    transition: 0.3s;
+}
+
+.skills-stack img:hover {
+    filter: grayscale(0) brightness(1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+}
+
+.skills-grid-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.skill-category {
+    padding: 15px;
+    background: transparent;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+    transition: border-color 0.3s;
+}
+
+.skill-label {
+    font-family: 'Changa', monospace;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.skill-category p {
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.skill-category:hover {
+    border-left-color: #ffffff;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+}
+
+.stats-container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 80px auto 0;
+}
+
+.stats-grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.stats-item {
+    text-align: left;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    padding-left: 20px;
+    transition: 0.3s;
+}
+
+.stats-item.stats-offline::after {
+    content: 'SINAL INSTÁVEL: API LIMITADA';
+    display: block;
+    font-family: 'Changa', monospace;
+    font-size: 0.8rem;
+    color: #ff007f;
+    margin-top: 10px;
+    text-shadow: 0 0 5px #ff007f;
+}
+
+.stats-item.stats-offline img {
+    display: none;
+}
+
+.stats-item:hover {
+    border-left-color: #ffffff;
+}
+
+.stats-img {
+    max-width: 100%;
+    margin-top: 15px;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.stats-img:hover {
+    opacity: 1;
+}
+
+.stats-img.graph {
+    filter: brightness(1.2);
+}
+
 .about-content h2::after {
     content: '|';
     margin-left: 5px;
@@ -293,7 +423,7 @@ h1, h2, h3, .logo {
     max-width: 500px;
 }
 
-.about-content strong {
+.about-content strong, .skill-category h3 {
     color: #fff;
 }
 
@@ -304,7 +434,7 @@ h1, h2, h3, .logo {
     background: #050505;
 }
 
-.services-section h2 {
+.skills-section h2, .services-section h2 {
     font-size: 2.5rem;
     margin-bottom: 50px;
     font-weight: 300;

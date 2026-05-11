@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Sistema de tratamento de erro para imagens e estatísticas externas
+    const handleImageError = (event) => {
+        const img = event.target;
+        
+        // Se for uma imagem de stats do GitHub, ela falha muito por rate limit
+        if (img.src.includes('github-readme-stats') || img.src.includes('streak-stats')) {
+            img.parentElement.classList.add('stats-offline');
+            console.warn("GitHub Stats atingiu o limite de requisições. Tente novamente mais tarde.");
+        } else {
+            img.style.opacity = '0.5';
+            img.style.filter = 'grayscale(1) contrast(0.5)';
+            console.warn(`Recurso externo indisponível: ${img.src}`);
+        }
+    };
+
     // Rastreamento global do mouse para o efeito de lanterna
     window.addEventListener('mousemove', (e) => {
         document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
@@ -39,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(item);
     });
 
-    // Efeito de brilho palavra por palavra + Chance de Glitch no Hover (P e H3)
-    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3');
+    // Efeito de brilho palavra por palavra + Chance de Glitch no Hover
+    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label');
     textElements.forEach(el => {
         const words = el.innerText.split(' ');
         el.innerHTML = words.map(word => `<span class="glow-word">${word}</span>`).join(' ');
@@ -105,22 +120,39 @@ document.addEventListener('DOMContentLoaded', () => {
     // Busca a descrição (bio) do GitHub dinamicamente
     async function fetchGitHubData() {
         const bioElement = document.querySelector('.profile-bio');
-        if (!bioElement) return;
+        const githubProfile = document.querySelector('.github-profile');
+        if (!bioElement || !githubProfile) return;
 
         try {
             const response = await fetch('https://api.github.com/users/John-BrenoF');
             if (response.ok) {
                 const data = await response.json();
-                if (data.bio) {
-                    bioElement.innerText = data.bio;
-                }
+                
+                // Atualiza a bio se existir
+                if (data.bio) bioElement.innerText = data.bio;
+                
+                // Adiciona estatísticas rápidas no verso do card
+                const statsDiv = document.createElement('div');
+                statsDiv.className = 'profile-stats-mini';
+                statsDiv.innerHTML = `
+                    <span>[ ${data.public_repos} REPOS ]</span>
+                    <span>[ ${data.followers} FOLLOWERS ]</span>
+                `;
+                
+                // Insere antes da bio para melhor hierarquia visual
+                githubProfile.insertBefore(statsDiv, bioElement);
             }
         } catch (error) {
-            console.error('Erro ao buscar dados do GitHub:', error);
+            console.warn('GitHub API rate limit or network error. Using fallback data.');
         }
     }
 
     fetchGitHubData();
+
+    // Aplica o tratador de erro em todas as imagens (incluindo as de estatísticas)
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', handleImageError);
+    });
 
     // --- SISTEMA DE GLITCH ---
     const canvas = document.getElementById('glitch-canvas');
