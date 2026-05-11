@@ -117,43 +117,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Busca a descrição (bio) do GitHub dinamicamente
-    async function fetchGitHubData() {
-        const bioElement = document.querySelector('.profile-bio');
-        const githubProfile = document.querySelector('.github-profile');
-        if (!bioElement || !githubProfile) return;
-
-        try {
-            const response = await fetch('https://api.github.com/users/John-BrenoF');
-            if (response.ok) {
-                const data = await response.json();
-                
-                // Atualiza a bio se existir
-                if (data.bio) bioElement.innerText = data.bio;
-                
-                // Adiciona estatísticas rápidas no verso do card
-                const statsDiv = document.createElement('div');
-                statsDiv.className = 'profile-stats-mini';
-                statsDiv.innerHTML = `
-                    <span>[ ${data.public_repos} REPOS ]</span>
-                    <span>[ ${data.followers} FOLLOWERS ]</span>
-                `;
-                
-                // Insere antes da bio para melhor hierarquia visual
-                githubProfile.insertBefore(statsDiv, bioElement);
-            }
-        } catch (error) {
-            console.warn('GitHub API rate limit or network error. Using fallback data.');
-        }
-    }
-
-    fetchGitHubData();
-
-    // Aplica o tratador de erro em todas as imagens (incluindo as de estatísticas)
-    document.querySelectorAll('img').forEach(img => {
-        img.addEventListener('error', handleImageError);
-    });
-
     // --- SISTEMA DE GLITCH ---
     const canvas = document.getElementById('glitch-canvas');
     if (canvas) {

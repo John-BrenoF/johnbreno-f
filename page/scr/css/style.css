@@ -354,46 +354,6 @@ h1, h2, h3, .logo {
     background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, transparent 100%);
 }
 
-.stats-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    width: 100%;
-    max-width: 1000px;
-    margin: 80px auto 0;
-}
-
-.stats-grid-wrapper {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.stats-item {
-    text-align: left;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
-    padding-left: 20px;
-    transition: 0.3s;
-}
-
-.stats-item.stats-offline::after {
-    content: 'SINAL INSTÁVEL: API LIMITADA';
-    display: block;
-    font-family: 'Changa', monospace;
-    font-size: 0.8rem;
-    color: #ff007f;
-    margin-top: 10px;
-    text-shadow: 0 0 5px #ff007f;
-}
-
-.stats-item.stats-offline img {
-    display: none;
-}
-
-.stats-item:hover {
-    border-left-color: #ffffff;
-}
-
 .stats-img {
     max-width: 100%;
     margin-top: 15px;
