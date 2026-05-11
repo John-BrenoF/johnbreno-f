@@ -19,6 +19,57 @@ body {
     overflow-x: hidden;
 }
 
+/* Bloqueio de scroll durante o boot */
+body.loading {
+    overflow: hidden;
+}
+
+/* Tela de Boot */
+#boot-loader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 20000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Changa', monospace;
+    padding: 20px;
+}
+
+#boot-ascii {
+    color: #fff;
+    text-shadow: 0 0 15px #fff, 0 0 30px rgba(255,255,255,0.2);
+    font-size: clamp(3px, 0.8vw, 10px);
+    line-height: 1.2;
+    margin-bottom: 40px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#boot-terminal {
+    color: #666; /* Cinza */
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 600px;
+    height: 150px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.boot-line {
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.boot-line.highlight {
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+}
+
 /* Scanlines sutis por cima de tudo */
 body::before {
     content: "";

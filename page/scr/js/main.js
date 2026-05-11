@@ -1,4 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- SISTEMA DE BOOT SEQUENCE ---
+    const bootLoader = document.getElementById('boot-loader');
+    const bootTerminal = document.getElementById('boot-terminal');
+    const bootAscii = document.getElementById('boot-ascii');
+    
+    const bootLines = [
+        { text: "[  0.000000] Initializing JOHN-BRENOF BIOS v4.0...", type: "gray" },
+        { text: "[  0.412034] CPU: Genuine BrenoF 2.40GHz @ 8 Cores", type: "gray" },
+        { text: "[  0.892341] Memory Test: 65536MB OK", type: "gray" },
+        { text: "[  1.102938] Checking filesystem integrity...", type: "gray" },
+        { text: "[  1.450281] Mounting /dev/jb-os on /root...", type: "gray" },
+        { text: "[  1.829301] Loading BRENOF KERNEL...", type: "highlight" },
+        { text: "[  2.102394] Initializing drivers: GPU, HID, NET...", type: "gray" },
+        { text: "[  2.503921] Starting Graphical Environment...", type: "gray" },
+        { text: "CORE_SYSTEM_READY > EXECUTE PORTFOLIO_UI", type: "highlight" }
+    ];
+
+    async function runBootSequence() {
+        // Mostra o ASCII primeiro
+        setTimeout(() => bootAscii.style.opacity = '1', 300);
+
+        for (let line of bootLines) {
+            const p = document.createElement('p');
+            p.className = `boot-line ${line.type === 'highlight' ? 'highlight' : ''}`;
+            p.textContent = line.text;
+            bootTerminal.appendChild(p);
+            
+            // Scroll automático para o final do terminal
+            bootTerminal.scrollTop = bootTerminal.scrollHeight;
+            
+            // Delay aleatório para parecer real
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 200 + 100));
+        }
+
+        // Finalização
+        setTimeout(() => {
+            bootLoader.style.opacity = '0';
+            document.body.classList.remove('loading');
+            setTimeout(() => bootLoader.style.display = 'none', 800);
+        }, 1000);
+    }
+
+    runBootSequence();
+
     // Sistema de tratamento de erro para imagens e estatísticas externas
     const handleImageError = (event) => {
         const img = event.target;
