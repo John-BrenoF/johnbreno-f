@@ -222,6 +222,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('next-btn');
 
     if (carousel && prevBtn && nextBtn) {
+        // Novo Observer para lidar com o foco (blur/unblur) dos cards no carrossel
+        const focusObserverOptions = {
+            root: carousel,
+            threshold: 0.7 // Card precisa estar 70% visível para ganhar foco
+        };
+
+        const focusObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('focused', entry.isIntersecting);
+            });
+        }, focusObserverOptions);
+
+        serviceItems.forEach(item => focusObserver.observe(item));
+
         const scrollAmount = 340; // largura do item + gap
 
         const updateButtons = () => {
