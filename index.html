@@ -9,6 +9,7 @@
 </head>
 <body>
 
+    <canvas id="glitch-canvas"></canvas>
     <div class="gradient-line top-line"></div>
 
     <nav class="top-bar">
@@ -47,53 +48,57 @@
     </main>
 
     <section id="servicos" class="services-section">
-        <h2>Nossos Serviços</h2>
-        <div class="services-container-inner">
-            <div class="services-grid">
+        <h2 class="section-title">Projetos Ativos</h2>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" id="prev-btn" aria-label="Anterior">❮</button>
+            <div class="services-grid" id="project-carousel">
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                    <h3>Tasma Code</h3>
-                    <p>Um editor de código com foco em controle e personalizações via plugins.</p>
+                    <h3>Notohiis</h3>
+                    <img src="https://github.com/John-BrenoF/notohiis/raw/main/midia/icon/nth.png" alt="Notohiis Logo" class="footer-logo">
+                    <p>Editor de texto minimalista e altamente personalizável focado em produtividade.</p>
+                    <a href="https://github.com/John-BrenoF/notohiis.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
-                    <h3>Tasma Code-TUI</h3>
-                    <p>Um editor de texto via terminal, opção ao Nano e Vim, com o básico para edição de texto.</p>
+                    <h3>tasmacode gcat</h3>
+                    <img src="https://raw.githubusercontent.com/John-BrenoF/tasmacode-Gcat/f31e6c4583bfac75570dbca2056dc78ced1638b8/icon/JCODE.svg" alt="Gcat Logo" class="footer-logo">
+                    <p>Interface gráfica para o ecossistema Tasma, desenvolvida em PySide6 com IA integrada.</p>
+                    <a href="https://github.com/John-BrenoF/tasmacode-Gcat.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
-                    <h3>Tasma OS</h3>
-                    <p>Um sistema operacional com foco em ser leve, personalizado e de código aberto.</p>
+                    <h3>estressebad</h3>
+                    <img src="https://github.com/John-BrenoF/estresebad/blob/main/Abuzittin.png?raw=true" alt="Estressebad Logo" class="footer-logo">
+                    <p>Um desafio experimental desenvolvido para testar os limites da paciência do usuário.</p>
+                    <a href="https://github.com/John-BrenoF/estresebad.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-                    <h3>Hittogram</h3>
-                    <p>Um app de mensagem privado e seguro onde não vendemos dados e é de código aberto.</p>
+                    <h3>tasmacode -neo terminal</h3>
+                    <img src="https://github.com/John-BrenoF/TASMACODE-neo/raw/main/midia/VID-20260215-WA0163(1).gif" alt="TASMACODE-neo Logo" class="footer-logo">
+                    <p>Editor de código via terminal inspirado no Vim, porém com foco em simplicidade absoluta.</p>
+                    <a href="https://github.com/John-BrenoF/TASMACODE-neo.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-                    <h3>Hittovos</h3>
-                    <p>Rede social onde a liberdade de expressão é priorizada acima dos lucros.</p>
+                    <h3>powedroid_py</h3>
+                    <img src="https://i.pinimg.com/736x/71/bf/3f/71bf3fd25597e70dacfdfcd97f859fe7.jpg" alt="TASMACODE-neo Logo" class="footer-logo">
+                    <p>Solução em Python para controle remoto de energia em dispositivos Android com botões físicos danificados.</p>
+                    <a href="https://github.com/John-BrenoF/powedroid_py.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
                 <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                    <h3>Tasmail</h3>
-                    <p>Um cliente de e-mail privado e com criptografia.</p>
-                </div>
-                <div class="service-item">
-                    <svg class="service-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    <h3>Tasma Hosps</h3>
-                    <p>Nosso serviço de hospedagem de lojas, sites e globais para empresas médias.</p>
+                    <h3>powfeedes</h3>
+                    <img src="https://i.pinimg.com/736x/c1/33/5e/c1335ebd52be5ad05d7804107e5423ff.jpg" alt="TASMACODE-neo Logo" class="footer-logo">
+                    <p>Widget de gerenciamento de energia para KDE Plasma inspirado no minimalismo do Hyprland.</p>
+                    <a href="https://github.com/John-BrenoF/powfeedes.git" target="_blank" class="btn">Ver no GitHub</a>
                 </div>
             </div>
+            <button class="carousel-btn next" id="next-btn" aria-label="Próximo">❯</button>
         </div>
     </section>
 
     <footer class="site-footer">
         <div class="footer-content">
+            
             <p>&copy; 2026 Tasma-tech. Todos os direitos reservados.</p>
             <div class="social-links">
-                <a href="https://github.com/Tasma-tech" target="_blank" title="GitHub">GitHub</a>
+                <a href="https://github.com/John-BrenoF/" target="_blank" title="GitHub">GitHub</a>
                 <a href="#" target="_blank" title="Twitter">Twitter</a>
                 <a href="#" target="_blank" title="LinkedIn">LinkedIn</a>
             </div>

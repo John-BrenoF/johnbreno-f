@@ -13,6 +13,45 @@ body {
     overflow-x: hidden;
 }
 
+/* Scanlines sutis por cima de tudo */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* Canvas de Glitch */
+#glitch-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.2; 
+}
+
+/* Efeito de Tremida no Body */
+.shake-effect {
+    animation: glitch-shake 0.15s linear both; /* Tremida única e rápida */
+}
+
+@keyframes glitch-shake {
+    0% { transform: translate(0); }
+    25% { transform: translate(-4px, 0); }
+    50% { transform: translate(4px, 0); }
+    75% { transform: translate(-2px, 0); }
+    100% { transform: translate(0); }
+}
+
 /* Linhas de Degradê Fixas */
 .gradient-line {
     position: fixed;
@@ -255,21 +294,95 @@ h1, h2, h3, .logo {
 }
 
 .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
     gap: 30px;
+    padding: 20px 0;
+    scrollbar-width: none; /* Firefox */
+}
+
+.services-grid::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: 0.3s;
+    opacity: 1;
+}
+
+.carousel-btn.disabled {
+    opacity: 0.2;
+    cursor: default;
+    pointer-events: none;
+}
+
+.carousel-btn:hover {
+    background: #ffffff;
+    color: #000;
+    box-shadow: 0 0 15px #ffffff;
+}
+
+.carousel-btn.prev {
+    left: -60px;
+}
+
+.carousel-btn.next {
+    right: -60px;
 }
 
 .service-item {
-    padding: 30px;
-    background: transparent;
-    border: none;
+    flex: 0 0 320px;
+    padding: 40px 30px;
+    background: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
     opacity: 0;
     transform: translateY(30px);
+    border-radius: 12px;
+    position: relative;
+}
+
+/* Camada de Scanline exclusiva para o hover da imagem */
+.service-item::before {
+    content: '';
+    position: absolute;
+    top: 40px; /* Alinhado com o padding interno */
+    width: 120px;
+    height: 120px;
+    background: repeating-linear-gradient(transparent 0%, transparent 50%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0.05) 100%);
+    background-size: 100% 4px;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 4px;
 }
 
 .service-item.visible {
@@ -278,7 +391,15 @@ h1, h2, h3, .logo {
 }
 
 .service-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(15, 15, 15, 0.8);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.service-item:hover::before {
+    opacity: 1;
+    animation: scanline-move 2s linear infinite;
 }
 
 .service-icon {
@@ -291,18 +412,80 @@ h1, h2, h3, .logo {
 
 .service-item h3 {
     margin-bottom: 15px;
-    color: #00d4ff;
+    color: #ffffff;
+}
+
+/* Ajuste para imagens dos projetos */
+.footer-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain; /* Garante que a imagem caiba sem distorcer */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover .footer-logo {
+    animation: img-distortion 0.4s steps(2) infinite;
+    filter: brightness(1.2) contrast(1.1) drop-shadow(0 0 15px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes img-distortion {
+    0% { clip-path: inset(10% 0 40% 0); transform: translate(-2px, 2px); }
+    25% { clip-path: inset(30% 0 10% 0); transform: translate(2px, -2px); }
+    50% { clip-path: inset(50% 0 20% 0); transform: translate(-1px, 3px); }
+    75% { clip-path: inset(20% 0 50% 0); transform: translate(3px, -1px); }
+    100% { clip-path: inset(0); transform: translate(0); }
+}
+
+@keyframes scanline-move {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-top: 15px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border-radius: 4px;
+}
+
+.btn:hover {
+    background: #ffffff;
+    color: #000;
+    box-shadow: 0 0 15px #ffffff;
 }
 
 .glow-word {
     transition: color 0.3s, text-shadow 0.3s;
     display: inline-block;
+    position: relative;
 }
 
 .glow-word:hover {
     color: #fff !important;
     text-shadow: 0 0 10px #00d4ff;
     cursor: default;
+}
+
+/* Efeito de Glitch nas Palavras */
+.word-glitch-active {
+    color: #fff !important;
+    text-shadow: 2px 0 #ff007f, -2px 0 #8a2be2, 0 0 8px #fff;
+    animation: word-glitch-steps 0.2s steps(2) infinite;
+}
+
+@keyframes word-glitch-steps {
+    0% { transform: translate(2px, -1px) skew(5deg); }
+    50% { transform: translate(-2px, 1px) skew(-5deg); }
+    100% { transform: translate(0); }
 }
 
 @keyframes blink { 50% { opacity: 0; } }
@@ -330,4 +513,6 @@ h1, h2, h3, .logo {
     .about-empty { display: none; }
     .about-content { padding-left: 0; border-left: none; }
     .top-bar { flex-direction: column; gap: 20px; }
+    .carousel-btn { display: none; }
+    .service-item { flex: 0 0 280px; }
 }
