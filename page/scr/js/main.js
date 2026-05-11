@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Rastreamento global do mouse para o efeito de lanterna
+    window.addEventListener('mousemove', (e) => {
+        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
     const aboutTitle = document.querySelector('.about-content h2');
     
     if (aboutTitle) {

@@ -39,6 +39,23 @@ body::before {
     opacity: 0.2; 
 }
 
+/* Lanterna de Exploração */
+#flashlight-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998; /* Logo abaixo das scanlines */
+    background: radial-gradient(
+        circle 250px at var(--mouse-x, -100%) var(--mouse-y, -100%),
+        rgba(255, 255, 255, 0.06) 0%,
+        rgba(255, 255, 255, 0.02) 40%,
+        transparent 80%
+    );
+}
+
 /* Efeito de Tremida no Body */
 .shake-effect {
     animation: glitch-shake 0.15s linear both; /* Tremida única e rápida */
