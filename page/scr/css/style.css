@@ -682,10 +682,16 @@ h1, h2, h3, .logo {
 
 /* Nova Seção de Contato */
 .contact-section {
-    padding: 120px 10%;
+    position: relative;
+    min-height: 100vh;
+    padding: 60px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
     background: var(--bg-dark);
     perspective: 1000px;
+    overflow: hidden;
 }
 
 .contact-grid {
@@ -914,7 +920,7 @@ h1, h2, h3, .logo {
     pointer-events: none;
     z-index: 1;
     opacity: var(--cv-light-opacity, 0);
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, transform 0.3s ease-out;
     /* Máscara para que as partículas apareçam mais onde a luz bate */
     -webkit-mask-image: radial-gradient(circle at 50% -10%, black 0%, transparent 70%);
     mask-image: radial-gradient(circle at 50% -10%, black 0%, transparent 70%);

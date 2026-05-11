@@ -156,6 +156,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('mousemove', (e) => {
         document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
         document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+
+        // Interação com as partículas de poeira (efeito de deslocamento pelo ar)
+        const particleContainer = document.getElementById('cv-particles');
+        if (particleContainer) {
+            const moveX = (e.clientX - window.innerWidth / 2) / 40;
+            const moveY = (e.clientY - window.innerHeight / 2) / 40;
+            particleContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        }
     });
 
     const aboutTitle = document.querySelector('.about-content h2');
