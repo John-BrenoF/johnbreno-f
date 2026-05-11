@@ -200,8 +200,11 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(icon);
     });
 
+    const cvCard = document.querySelector('.cv-card');
+    if (cvCard) observer.observe(cvCard);
+
     // Efeito de brilho palavra por palavra + Chance de Glitch no Hover
-    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label');
+    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label, .cv-info p, .cv-info h3');
     textElements.forEach(el => {
         const words = el.innerText.split(' ');
         el.innerHTML = words.map(word => `<span class="glow-word">${word}</span>`).join(' ');
@@ -264,8 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Interatividade 3D para os Cartões de Contato
-    const contactCards = document.querySelectorAll('.contact-card');
-    contactCards.forEach(card => {
+    const interactiveCards = document.querySelectorAll('.contact-card, .cv-card');
+    interactiveCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -424,5 +427,28 @@ document.addEventListener('DOMContentLoaded', () => {
         prevBtn.addEventListener('click', () => {
             carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         });
+    }
+
+    // Controle dinâmico da luz da seção de currículo via scroll
+    const cvSection = document.getElementById('curriculo');
+    if (cvSection) {
+        const updateCvLight = () => {
+            const rect = cvSection.getBoundingClientRect();
+            const viewHeight = window.innerHeight;
+
+            if (rect.top < viewHeight && rect.bottom > 0) {
+                const sectionCenter = rect.top + rect.height / 2;
+                const viewCenter = viewHeight / 2;
+                const distance = Math.abs(viewCenter - sectionCenter);
+                const maxRange = viewHeight * 0.8;
+                
+                let progress = 1 - (distance / maxRange);
+                progress = Math.max(0, Math.min(1, progress));
+                
+                cvSection.style.setProperty('--cv-light-opacity', progress.toFixed(3));
+            }
+        };
+        window.addEventListener('scroll', updateCvLight);
+        updateCvLight(); // Executa uma vez no load
     }
 });
