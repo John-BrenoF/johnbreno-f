@@ -106,6 +106,89 @@ h1, h2, h3, .logo {
     50% { transform: translateY(-20px) rotate(2deg); filter: drop-shadow(0 0 40px rgba(138, 43, 226, 0.4)); }
 }
 
+/* Cartão 3D Interativo */
+.card-3d-container {
+    perspective: 1500px;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.card-3d {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.card-3d.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0a0a0a;
+}
+
+.card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+    flex-direction: column;
+}
+
+.github-profile {
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.github-profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #00d4ff;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.github-profile span {
+    font-family: 'Changa', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.card-glare {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    border-radius: 20px;
+}
+
 .about-content {
     padding-left: 50px;
     border-left: 1px solid #222; /* Linha sutil de separação */
