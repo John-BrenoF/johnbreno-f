@@ -139,9 +139,19 @@ h1, h2, h3, .logo {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: none;
     background: #050505;
     transform-style: preserve-3d; /* Permite parallax interno */
+}
+
+.card-face::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Aumentado a cobertura da "fumaça" reduzindo a área transparente central */
+    background: radial-gradient(circle, transparent 6%, #000000 100%);
+    pointer-events: none;
+    z-index: 2;
 }
 
 .card-front img {

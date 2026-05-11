@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Calcula a rotação (máximo 15 graus)
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            const rotateX = (centerY - y) / 15;
-            const rotateY = (x - centerX) / 15;
+            const rotateX = (centerY - y) / 14.4; // Aumentado a sensibilidade em 4% (15 / 1.04)
+            const rotateY = (x - centerX) / 14.4;
 
             // Se estiver virado, inverte a lógica do rotateY para manter a naturalidade
             const currentRotation = card.classList.contains('flipped') ? 180 : 0;
