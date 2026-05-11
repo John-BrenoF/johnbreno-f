@@ -397,9 +397,35 @@ h1, h2, h3, .logo {
 
 /* Seção de Serviços */
 .services-section {
+    position: relative;
     padding: 100px 10%;
     text-align: center;
-    background: #050505;
+    background: #000;
+    overflow: hidden;
+}
+
+.services-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../midias/imgs/toque.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Efeito Parallax */
+    opacity: 0.35; /* Opacidade controlada para não ofuscar os cards */
+    z-index: 0;
+    pointer-events: none;
+    /* Máscara para suavizar a entrada e saída da imagem no fundo preto */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.services-section > * {
+    position: relative;
+    z-index: 1;
 }
 
 .skills-section h2, .services-section h2 {
