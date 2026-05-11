@@ -451,4 +451,27 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('scroll', updateCvLight);
         updateCvLight(); // Executa uma vez no load
     }
+
+    // Geração de partículas de poeira para a seção de currículo
+    const particleContainer = document.getElementById('cv-particles');
+    if (particleContainer) {
+        for (let i = 0; i < 50; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            
+            const size = Math.random() * 3 + 1;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.top = `${Math.random() * 100}%`;
+            
+            p.style.setProperty('--move-x', `${(Math.random() - 0.5) * 150}px`);
+            p.style.setProperty('--move-y', `${(Math.random() - 0.5) * 150}px`);
+            
+            p.style.animation = `float-dust ${Math.random() * 8 + 7}s linear infinite`;
+            p.style.animationDelay = `${Math.random() * 10}s`;
+            
+            particleContainer.appendChild(p);
+        }
+    }
 });

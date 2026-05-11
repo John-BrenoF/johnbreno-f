@@ -904,6 +904,40 @@ h1, h2, h3, .logo {
     z-index: 1;
 }
 
+/* Efeito de Poeira/Partículas */
+.cv-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: var(--cv-light-opacity, 0);
+    transition: opacity 0.3s ease;
+    /* Máscara para que as partículas apareçam mais onde a luz bate */
+    -webkit-mask-image: radial-gradient(circle at 50% -10%, black 0%, transparent 70%);
+    mask-image: radial-gradient(circle at 50% -10%, black 0%, transparent 70%);
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(1px);
+}
+
+@keyframes float-dust {
+    0% { transform: translate(0, 0); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { 
+        transform: translate(var(--move-x), var(--move-y)); 
+        opacity: 0; 
+    }
+}
+
 .curriculum-section .section-title {
     position: relative;
     z-index: 2;
