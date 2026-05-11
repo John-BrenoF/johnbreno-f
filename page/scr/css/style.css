@@ -1075,3 +1075,10 @@ h1, h2, h3, .logo {
     .carousel-btn { display: none; }
     .service-item { flex: 0 0 280px; }
 }
+
+/* Telas Médias (Tablets e Laptops pequenos) */
+@media (min-width: 769px) and (max-width: 1150px) {
+    .contact-card {
+        flex: 0 1 calc(50% - 20px); /* Ocupa metade da largura menos metade do gap */
+    }
+}
