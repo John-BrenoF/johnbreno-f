@@ -76,7 +76,31 @@ document.addEventListener('DOMContentLoaded', () => {
             // Impede o clique no link de disparar o giro se for o link do GitHub
             if (!e.target.closest('a')) {
                 card.classList.toggle('flipped');
+                
+                // Atualiza o transform imediatamente para garantir que o lado de trás apareça
+                const currentRotation = card.classList.contains('flipped') ? 180 : 0;
+                card.style.transform = `rotateX(0deg) rotateY(${currentRotation}deg)`;
             }
         });
     }
+
+    // Busca a descrição (bio) do GitHub dinamicamente
+    async function fetchGitHubData() {
+        const bioElement = document.querySelector('.profile-bio');
+        if (!bioElement) return;
+
+        try {
+            const response = await fetch('https://api.github.com/users/John-BrenoF');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.bio) {
+                    bioElement.innerText = data.bio;
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao buscar dados do GitHub:', error);
+        }
+    }
+
+    fetchGitHubData();
 });
