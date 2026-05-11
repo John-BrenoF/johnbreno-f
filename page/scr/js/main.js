@@ -6,6 +6,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const bootProgress = document.getElementById('boot-progress');
     const progressContainer = document.getElementById('boot-progress-container');
     
+    function showNotification(message) {
+        const container = document.getElementById('notification-container');
+        if (!container) return;
+        
+        const notif = document.createElement('div');
+        notif.className = 'notification';
+        notif.innerHTML = `<span class="notif-accent">></span> ${message}`;
+        container.appendChild(notif);
+
+        setTimeout(() => notif.classList.add('show'), 100);
+
+        setTimeout(() => {
+            notif.classList.remove('show');
+            setTimeout(() => notif.remove(), 500);
+        }, 5000);
+    }
+
     const bootLines = [
         { text: "[  0.000000] Initializing JOHN-BRENOF BIOS v4.0...", type: "gray" },
         { text: "[  0.412034] CPU: Genuine BrenoF 2.40GHz @ 8 Cores", type: "gray" },
@@ -69,6 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Verifica se já sabemos o nome
         let userName = localStorage.getItem('jb_portfolio_user');
+        const isReturning = !!userName;
         
         if (!userName) {
             bootLoader.style.opacity = '0';
@@ -96,6 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
             bootTerminal.appendChild(p);
             
             await new Promise(r => setTimeout(r, 2000));
+        }
+
+        // Determinar saudação baseada na hora
+        const currentHour = new Date().getHours();
+        let timeGreeting = "BOA NOITE";
+        if (currentHour >= 5 && currentHour < 12) timeGreeting = "BOM DIA";
+        else if (currentHour >= 12 && currentHour < 18) timeGreeting = "BOA TARDE";
+
+        // Mostrar notificações
+        if (isReturning) {
+            showNotification(`${timeGreeting}, ${userName.toUpperCase()}`);
+            setTimeout(() => showNotification(`SEJA BEM-VINDO DE VOLTA !!!`), 800);
+        } else {
+            showNotification(`SEJA BEM-VINDO, ${userName.toUpperCase()}`);
         }
 
         bootLoader.style.opacity = '0';
