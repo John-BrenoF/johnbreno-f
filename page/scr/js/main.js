@@ -613,4 +613,34 @@ document.addEventListener('DOMContentLoaded', () => {
             particleContainer.appendChild(p);
         }
     }
+
+    // --- LOGICA DO EASTER EGG (GATINHO) ---
+    const logoElement = document.querySelector('.logo');
+    const catElement = document.getElementById('cat-easter-egg');
+    let catAppearanceTimer;
+    let catRemovalTimer;
+
+    if (logoElement && catElement) {
+        logoElement.addEventListener('mouseenter', () => {
+            // Se o mouse ficar 2 segundos parado no titulo
+            catAppearanceTimer = setTimeout(() => {
+                catElement.classList.add('active');
+                showNotification("SISTEMA_INFO: GATINHO DETECTADO");
+                
+                // Fica em loop por 4 segundos e depois some
+                catRemovalTimer = setTimeout(() => {
+                    catElement.classList.remove('active');
+                }, 4000);
+            }, 2000);
+        });
+
+        logoElement.addEventListener('mouseleave', () => {
+            // Se tirar o mouse, cancela tudo e esconde
+            clearTimeout(catAppearanceTimer);
+            clearTimeout(catRemovalTimer);
+            catElement.classList.remove('active');
+            catElement.style.transform = '';
+            catElement.style.opacity = '';
+        });
+    }
 });
