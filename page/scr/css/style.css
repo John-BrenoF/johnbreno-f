@@ -1261,14 +1261,86 @@ body.light-mode .service-item.focused {
 
 /* Mobile */
 @media (max-width: 768px) {
+    /* Ajuste de tipografia base */
+    body { font-size: 14px; }
+
+    /* Boot Loader - Forçando o ASCII a caber na tela */
+    #boot-ascii { 
+        font-size: 3px !important; /* Tamanho mínimo para não quebrar */
+        margin-bottom: 20px;
+        line-height: 1;
+    }
+    #boot-terminal { font-size: 0.75rem; height: 120px; }
+
+    /* Barra de Navegação */
+    .top-bar { 
+        padding: 20px 5%; 
+        flex-direction: column; 
+        gap: 15px; 
+    }
+    .nav-links { 
+        gap: 12px; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+    }
+    .nav-links a { font-size: 0.8rem; letter-spacing: 1px; }
+
+    /* Seções e Container */
+    .container, .skills-section, .services-section, .curriculum-section, .contact-section { 
+        padding: 60px 5%; 
+    }
+
+    /* Sobre Mim */
     .about-section {
         grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
     }
-    .about-empty { display: none; }
     .about-content { padding-left: 0; border-left: none; }
-    .top-bar { flex-direction: column; gap: 20px; }
+    .about-content h2 { font-size: 2rem; }
+    
+    .card-3d-container { 
+        height: 400px; 
+        max-width: 300px; 
+    }
+
+    /* Skills */
+    .skills-stack {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+    }
+    .skills-stack img { width: 45px; }
+
+    /* Projetos (Carrossel) */
     .carousel-btn { display: none; }
-    .service-item { flex: 0 0 280px; }
+    .service-item { 
+        flex: 0 0 85vw; /* Ocupa quase a tela toda, mas deixa ver o próximo */
+        padding: 30px 20px;
+    }
+
+    /* Currículo */
+    .cv-card { padding: 30px 20px; }
+
+    /* Contato */
+    .contact-grid { gap: 20px; }
+    .contact-card { 
+        width: 100%; 
+        min-width: unset; 
+    }
+
+    /* Notificações no Mobile */
+    #notification-container {
+        top: 20px;
+        right: 5%;
+        left: 5%;
+        width: 90%;
+    }
+    .notification {
+        min-width: unset;
+        width: 100%;
+    }
 }
 
 /* Telas Médias (Tablets e Laptops pequenos) */
