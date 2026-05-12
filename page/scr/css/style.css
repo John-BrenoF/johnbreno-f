@@ -321,6 +321,12 @@ h1, h2, h3, .logo {
     cursor: pointer;
 }
 
+body.light-mode .logo {
+    font-weight: 800;
+    color: #000;
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
 .logo:hover {
     text-shadow: 0 0 15px var(--primary-color);
 }
@@ -677,6 +683,11 @@ body.light-mode .skills-stack img {
     mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
 }
 
+body.light-mode .services-section::before {
+    filter: invert(1);
+    opacity: 0.12; /* Opacidade reduzida para não brigar com o conteúdo claro */
+}
+
 .services-section > * {
     position: relative;
     z-index: 1;
@@ -769,8 +780,9 @@ body.light-mode .skills-stack img {
 }
 
 body.light-mode .service-item {
-    opacity: 0.5;
-    filter: blur(3px); /* Menos desfoque no modo claro para manter legibilidade */
+    opacity: 0.7; /* Aumentado o destaque dos cards inativos */
+    filter: blur(2px); 
+    border-color: rgba(0, 0, 0, 0.15);
 }
 
 body.light-mode .service-item:hover,
