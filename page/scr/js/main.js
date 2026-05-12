@@ -6,21 +6,105 @@ document.addEventListener('DOMContentLoaded', () => {
     const bootProgress = document.getElementById('boot-progress');
     const progressContainer = document.getElementById('boot-progress-container');
     
+    const icons = {
+        sun: '<circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41m12.72-12.72l-1.41 1.41"></path>',
+        moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'
+    };
+
+    // --- CONTROLE DE TEMA (MODO CLARO/ESCURO) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeSvg = themeToggle.querySelector('svg');
+    const currentTheme = localStorage.getItem('theme');
+
+    const updateThemeIcon = (theme) => {
+        themeSvg.innerHTML = theme === 'light' ? icons.sun : icons.moon;
+    };
+
+    if (currentTheme === 'light') {
+        document.body.classList.add('light-mode');
+        updateThemeIcon('light');
+    } else {
+        updateThemeIcon('dark');
+    }
+
+    themeToggle.addEventListener('click', () => {
+        // Adiciona efeito de glitch visual na transição
+        document.body.classList.add('theme-transitioning');
+        
+        // Dispara o glitch do canvas se ele existir para reforçar a "falha"
+        if (typeof triggerGlitch === 'function') triggerGlitch();
+
+        document.body.classList.toggle('light-mode');
+        const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', theme);
+        updateThemeIcon(theme);
+        showNotification(`MODO ${theme === 'light' ? 'CLARO' : 'ESCURO'} ATIVADO`);
+
+        setTimeout(() => {
+            document.body.classList.remove('theme-transitioning');
+        }, 400);
+    });
+
     function showNotification(message) {
         const container = document.getElementById('notification-container');
         if (!container) return;
-        
+
         const notif = document.createElement('div');
         notif.className = 'notification';
-        notif.innerHTML = `<span class="notif-accent">></span> ${message}`;
+        notif.innerHTML = `
+            <span class="notif-accent">></span> ${message}
+            <div class="notif-progress"></div>
+        `;
         container.appendChild(notif);
+
+        const progressBar = notif.querySelector('.notif-progress');
+        const duration = 5000;
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        // Animação da barra de progresso
+        progressBar.animate([
+            { transform: 'scaleX(1)' },
+            { transform: 'scaleX(0)' }
+        ], { duration: duration, easing: 'linear' });
 
         setTimeout(() => notif.classList.add('show'), 100);
 
-        setTimeout(() => {
+        // Lógica de Arrastar (Swipe)
+        notif.addEventListener('pointerdown', (e) => {
+            startX = e.clientX;
+            isDragging = true;
+            notif.classList.add('dragging');
+            notif.setPointerCapture(e.pointerId);
+        });
+
+        notif.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            currentX = Math.max(0, e.clientX - startX); // Só permite arrastar para a direita
+            notif.style.transform = `translateX(${currentX}px)`;
+            notif.style.opacity = 1 - (currentX / 300);
+        });
+
+        notif.addEventListener('pointerup', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            notif.classList.remove('dragging');
+            
+            if (currentX > 150) { // Threshold para fechar
+                dismiss();
+            } else {
+                notif.style.transform = '';
+                notif.style.opacity = '';
+            }
+        });
+
+        const dismiss = () => {
             notif.classList.remove('show');
             setTimeout(() => notif.remove(), 500);
-        }, 5000);
+        };
+
+        const autoDismissTimeout = setTimeout(dismiss, duration);
     }
 
     const bootLines = [
