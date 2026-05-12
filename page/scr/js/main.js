@@ -153,16 +153,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Rastreamento global do mouse para o efeito de lanterna
-    window.addEventListener('mousemove', (e) => {
-        document.body.style.setProperty('--mouse-x', `${e.clientX}px`);
-        document.body.style.setProperty('--mouse-y', `${e.clientY}px`);
+    let mouseX = 0, mouseY = 0;
+    let ticking = false;
 
-        // Interação com as partículas de poeira (efeito de deslocamento pelo ar)
-        const particleContainer = document.getElementById('cv-particles');
-        if (particleContainer) {
-            const moveX = (e.clientX - window.innerWidth / 2) / 40;
-            const moveY = (e.clientY - window.innerHeight / 2) / 40;
-            particleContainer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                document.body.style.setProperty('--mouse-x', `${mouseX}px`);
+                document.body.style.setProperty('--mouse-y', `${mouseY}px`);
+
+                const particleContainer = document.getElementById('cv-particles');
+                if (particleContainer) {
+                    const moveX = (mouseX - window.innerWidth / 2) / 40;
+                    const moveY = (mouseY - window.innerHeight / 2) / 40;
+                    particleContainer.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 
@@ -191,6 +202,10 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
+                // Remove o delay de entrada após a animação inicial para não travar o hover
+                setTimeout(() => {
+                    entry.target.style.transitionDelay = '0s';
+                }, 1000);
             }
         });
     }, observerOptions);
@@ -206,6 +221,28 @@ document.addEventListener('DOMContentLoaded', () => {
         // Delay escalonado para criar o efeito de "onda" na entrada
         icon.style.transitionDelay = `${(index % 8) * 0.05}s`; 
         observer.observe(icon);
+
+        let rect;
+        icon.addEventListener('mouseenter', () => {
+            rect = icon.getBoundingClientRect();
+        });
+
+        icon.addEventListener('mousemove', (e) => {
+            if (!rect) return;
+            const centerX = rect.left + rect.width / 2;
+            const relativeX = (e.clientX - centerX) / (rect.width / 2);
+            
+            // requestAnimationFrame para suavizar a atualização da variável CSS
+            window.requestAnimationFrame(() => {
+                const tilt = relativeX * 20;
+                icon.style.setProperty('--tilt', `${tilt}deg`);
+            });
+        });
+
+        // Reseta a inclinação quando o mouse sai
+        icon.addEventListener('mouseleave', () => {
+            icon.style.setProperty('--tilt', '0deg');
+        });
     });
 
     const cvCard = document.querySelector('.cv-card');
@@ -277,18 +314,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // Interatividade 3D para os Cartões de Contato
     const interactiveCards = document.querySelectorAll('.contact-card, .cv-card');
     interactiveCards.forEach(card => {
+        let rect;
+        card.addEventListener('mouseenter', () => {
+            rect = card.getBoundingClientRect();
+        });
+
         card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
+            if (!rect) return;
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+            const rotateX = (rect.height / 2 - y) / 15;
+            const rotateY = (x - rect.width / 2) / 15;
             
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (centerY - y) / 15; // Sensibilidade do movimento
-            const rotateY = (x - centerX) / 15;
-            
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            window.requestAnimationFrame(() => {
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
         });
 
         card.addEventListener('mouseleave', () => {
@@ -440,20 +480,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Controle dinâmico da luz da seção de currículo via scroll
     const cvSection = document.getElementById('curriculo');
     if (cvSection) {
+        let scrollTicking = false;
         const updateCvLight = () => {
-            const rect = cvSection.getBoundingClientRect();
-            const viewHeight = window.innerHeight;
+            if (!scrollTicking) {
+                window.requestAnimationFrame(() => {
+                    const rect = cvSection.getBoundingClientRect();
+                    const viewHeight = window.innerHeight;
 
-            if (rect.top < viewHeight && rect.bottom > 0) {
-                const sectionCenter = rect.top + rect.height / 2;
-                const viewCenter = viewHeight / 2;
-                const distance = Math.abs(viewCenter - sectionCenter);
-                const maxRange = viewHeight * 0.8;
-                
-                let progress = 1 - (distance / maxRange);
-                progress = Math.max(0, Math.min(1, progress));
-                
-                cvSection.style.setProperty('--cv-light-opacity', progress.toFixed(3));
+                    if (rect.top < viewHeight && rect.bottom > 0) {
+                        const sectionCenter = rect.top + rect.height / 2;
+                        const viewCenter = viewHeight / 2;
+                        const distance = Math.abs(viewCenter - sectionCenter);
+                        const maxRange = viewHeight * 0.8;
+                        
+                        let progress = 1 - (distance / maxRange);
+                        progress = Math.max(0, Math.min(1, progress));
+                        
+                        cvSection.style.setProperty('--cv-light-opacity', progress.toFixed(3));
+                    }
+                    scrollTicking = false;
+                });
+                scrollTicking = true;
             }
         };
         window.addEventListener('scroll', updateCvLight);
