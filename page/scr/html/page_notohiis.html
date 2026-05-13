@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="../css/style.css">
     <style>
         .project-details {
-            padding: 80px 10%;
-            max-width: 1000px;
-            margin: 0 auto;
+            padding: 60px 5%;
+            flex: 1;
         }
         .project-header {
-            text-align: center;
+            text-align: left;
             margin-bottom: 60px;
-            padding-top: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--card-border);
         }
         .project-content h2 {
             margin: 40px 0 20px;
@@ -78,72 +78,95 @@
         </li>
     </nav>
 
-    <main class="project-details">
-        <a href="../../../index.html" class="back-link">❮ VOLTAR AO PORTFÓLIO</a>
-        
-        <div class="project-header">
-            <img src="https://raw.githubusercontent.com/John-BrenoF/notohiis/main/midia/icon/nth.png" width="220" alt="Notohiis Logo">
-            <h1>🖊️ Notohiis Editor</h1>
-            <p><strong>Simples por padrão.<br>Extremamente poderoso quando você precisa.</strong></p>
-            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python">
-                <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
-                <img src="https://img.shields.io/badge/Version-0.2--alpha-orange" alt="Version">
-            </div>
-        </div>
-
-        <div class="project-content">
-            <p><strong>Notohiis</strong> é um editor de texto minimalista, rápido e altamente modular, feito em Python. Projetado para quem valoriza foco, beleza e controle total sobre sua ferramenta de escrita e codificação.</p>
-
-            <h2>🚀 Filosofia</h2>
-            <p>O editor deve desaparecer para que <strong>você</strong> brilhe.</p>
-            <ul>
-                <li><strong>Minimalismo intencional</strong> — Interface limpa, sem distrações.</li>
-                <li><strong>Modularidade extrema</strong> — Core separado da interface.</li>
-                <li><strong>Extensibilidade total</strong> — Tudo que falta, você cria com plugins em Python.</li>
+    <div class="wiki-wrapper">
+        <aside class="wiki-sidebar">
+            <h4>DOCUMENTAÇÃO</h4>
+            <ul class="wiki-nav">
+                <li><a href="#intro">Introdução</a></li>
+                <li><a href="#filosofia">Filosofia</a></li>
+                <li><a href="#destaques">Destaques</a></li>
+                <li><a href="#screenshots">Screenshots</a></li>
+                <li><a href="#instalacao">Instalação</a></li>
+                <li><a href="#plugins">Plugins</a></li>
+                <li><a href="#estrutura">Estrutura</a></li>
             </ul>
+        </aside>
 
-            <h2>✨ Destaques</h2>
-            <table>
-                <thead>
-                    <tr><th>Recurso</th><th>Descrição</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>🎨 <strong>Tematização Total</strong></td><td>Temas completos via arquivos JSON simples</td></tr>
-                    <tr><td>🔌 <strong>Sistema de Plugins</strong></td><td>Carregamento dinâmico e fácil de criar</td></tr>
-                    <tr><td>🌐 <strong>Híbrido (GUI + TUI)</strong></td><td>Mesma lógica no Desktop (CustomTkinter) e no Terminal (Textual)</td></tr>
-                    <tr><td>🛠️ <strong>Focado em Dev</strong></td><td>Git nativo, suporte a múltiplas linguagens e syntax highlighting</td></tr>
-                    <tr><td>⚡ <strong>Performance</strong></td><td>Leve e rápido, mesmo com vários plugins</td></tr>
-                </tbody>
-            </table>
+        <main class="project-details">
+            <a href="../../../index.html" class="back-link">❮ VOLTAR AO PORTFÓLIO</a>
+            
+            <div class="project-header wiki-section" id="intro">
+                <img src="https://raw.githubusercontent.com/John-BrenoF/notohiis/main/midia/icon/nth.png" width="120" alt="Notohiis Logo">
+                <h1 class="typewriter-text">Notohiis Editor</h1>
+                <p><strong>Simples por padrão. Extremamente poderoso quando você precisa.</strong></p>
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python">
+                    <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+                    <img src="https://img.shields.io/badge/Version-0.2--alpha-orange" alt="Version">
+                </div>
+                <p style="margin-top: 20px;"><strong>Notohiis</strong> é um editor de texto minimalista, rápido e altamente modular, feito em Python. Projetado para quem valoriza foco, beleza e controle total sobre sua ferramenta de escrita e codificação.</p>
+            </div>
 
-            <h2>📸 Screenshots</h2>
-            <img style="width: 100%; border-radius: 8px;" src="https://github.com/user-attachments/assets/de38c5cb-29aa-44f6-ab69-e6452276b867" alt="Notohiis Screenshot">
+            <div class="project-content">
+                <section class="wiki-section" id="filosofia">
+                    <h2>🚀 Filosofia</h2>
+                    <p>O editor deve desaparecer para que <strong>você</strong> brilhe.</p>
+                    <ul>
+                        <li><strong>Minimalismo intencional</strong> — Interface limpa, sem distrações.</li>
+                        <li><strong>Modularidade extrema</strong> — Core separado da interface.</li>
+                        <li><strong>Extensibilidade total</strong> — Tudo que falta, você cria com plugins em Python.</li>
+                    </ul>
+                </section>
 
-            <h2>🛠️ Como Instalar e Usar</h2>
-            <pre><code># Clone o repositório
+                <section class="wiki-section" id="destaques">
+                    <h2>✨ Destaques</h2>
+                    <table>
+                        <thead>
+                            <tr><th>Recurso</th><th>Descrição</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>🎨 <strong>Tematização Total</strong></td><td>Temas completos via arquivos JSON simples</td></tr>
+                            <tr><td>🔌 <strong>Sistema de Plugins</strong></td><td>Carregamento dinâmico e fácil de criar</td></tr>
+                            <tr><td>🌐 <strong>Híbrido (GUI + TUI)</strong></td><td>Mesma lógica no Desktop (CustomTkinter) e no Terminal (Textual)</td></tr>
+                            <tr><td>🛠️ <strong>Focado em Dev</strong></td><td>Git nativo, suporte a múltiplas linguagens e syntax highlighting</td></tr>
+                            <tr><td>⚡ <strong>Performance</strong></td><td>Leve e rápido, mesmo com vários plugins</td></tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="wiki-section" id="screenshots">
+                    <h2>📸 Screenshots</h2>
+                    <img style="width: 100%; border-radius: 8px;" src="https://github.com/user-attachments/assets/de38c5cb-29aa-44f6-ab69-e6452276b867" alt="Notohiis Screenshot">
+                </section>
+
+                <section class="wiki-section" id="instalacao">
+                    <h2>🛠️ Como Instalar e Usar</h2>
+                    <pre><code># Clone o repositório
 git clone https://github.com/John-BrenoF/notohiis.git
 cd notohiis
 
 # Dê permissão e execute
 chmod +x notohiis.sh
 ./notohiis.sh</code></pre>
+                    <p><strong>Dica:</strong> Na primeira execução, o script cria automaticamente o alias <code>nth</code>, permitindo abrir o editor de qualquer lugar com: <code>nth</code></p>
+                </section>
 
-            <p><strong>Dica:</strong> Na primeira execução, o script cria automaticamente o alias <code>nth</code>, permitindo abrir o editor de qualquer lugar com: <code>nth</code></p>
+                <section class="wiki-section" id="plugins">
+                    <h2>🧩 Turbinando com Plugins</h2>
+                    <p>Personalizar o Notohiis é extremamente simples. Basta colocar seus arquivos Python na pasta <code>plugins/</code> que eles são carregados automaticamente.</p>
+                    <p><strong>Exemplos de plugins disponíveis:</strong></p>
+                    <ul>
+                        <li><strong>Auto-close</strong> — Fecha parênteses, colchetes e aspas automaticamente</li>
+                        <li><strong>Color Preview</strong> — Visualiza cores hexadecimais em tempo real</li>
+                        <li><strong>Git Status</strong> — Integração completa com Git na sidebar e status bar</li>
+                        <li><strong>Markdown Live Preview</strong></li>
+                        <li><strong>Zen Mode</strong> — Foco total</li>
+                    </ul>
+                </section>
 
-            <h2>🧩 Turbinando com Plugins</h2>
-            <p>Personalizar o Notohiis é extremamente simples. Basta colocar seus arquivos Python na pasta <code>plugins/</code> que eles são carregados automaticamente.</p>
-            <p><strong>Exemplos de plugins disponíveis:</strong></p>
-            <ul>
-                <li><strong>Auto-close</strong> — Fecha parênteses, colchetes e aspas automaticamente</li>
-                <li><strong>Color Preview</strong> — Visualiza cores hexadecimais em tempo real</li>
-                <li><strong>Git Status</strong> — Integração completa com Git na sidebar e status bar</li>
-                <li><strong>Markdown Live Preview</strong></li>
-                <li><strong>Zen Mode</strong> — Foco total</li>
-            </ul>
-
-            <h2>📂 Estrutura do Projeto</h2>
-            <pre><code>notohiis/
+                <section class="wiki-section" id="estrutura">
+                    <h2>📂 Estrutura do Projeto</h2>
+                    <pre><code>notohiis/
 ├── core/          # Lógica principal e sistema de plugins
 ├── ui/            # Interface Gráfica (CustomTkinter)
 ├── tui/           # Interface Terminal (Textual)
@@ -151,13 +174,15 @@ chmod +x notohiis.sh
 ├── midia/         # Logos e screenshots
 ├── themes/        # Temas em JSON
 └── notohiis.sh    # Script de inicialização inteligente</code></pre>
+                </section>
 
-            <div style="text-align: center; margin-top: 50px; padding: 30px; border-top: 1px solid var(--card-border); color: var(--text-gray);">
-                <p><strong>Notohiis — Versão 0.2-alpha</strong><br><em>"Frango com batata doce" Edition</em></p>
-                <p>Feito com ❤️ e Python por <strong>John Breno</strong>.</p>
+                <div style="text-align: center; margin-top: 50px; padding: 30px; border-top: 1px solid var(--card-border); color: var(--text-gray);">
+                    <p><strong>Notohiis — Versão 0.2-alpha</strong><br><em>"Frango com batata doce" Edition</em></p>
+                    <p>Feito com ❤️ e Python por <strong>John Breno</strong>.</p>
+                </div>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <div id="notification-container"></div>
     <script src="../js/main.js"></script>

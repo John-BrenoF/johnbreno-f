@@ -262,32 +262,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const aboutTitle = document.querySelector('.about-content h2');
-    
-    if (aboutTitle) {
-        const text = aboutTitle.innerText;
-        aboutTitle.innerText = '';
+    // --- EFEITO TYPEWRITER UNIVERSAL ---
+    const typewriterElements = document.querySelectorAll('.about-content h2, .typewriter-text');
+    typewriterElements.forEach(el => {
+        const text = el.innerText;
+        el.innerText = '';
         let i = 0;
 
         function typeWriter() {
             if (i < text.length) {
-                aboutTitle.innerHTML += text.charAt(i);
+                el.innerHTML += text.charAt(i);
                 i++;
                 setTimeout(typeWriter, 100);
             }
         }
         typeWriter();
-    }
+    });
 
-    // Scroll Reveal para Serviços
-    const serviceItems = document.querySelectorAll('.service-item');
+    // Scroll Reveal Setup
     const observerOptions = { threshold: 0.2 };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Remove o delay de entrada após a animação inicial para não travar o hover
                 setTimeout(() => {
                     entry.target.style.transitionDelay = '0s';
                 }, 1000);
@@ -295,10 +293,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    serviceItems.forEach((item, index) => {
-        item.style.transitionDelay = `${index * 0.1}s`;
-        observer.observe(item);
-    });
+    // Coletamos todos os itens que precisam de scroll reveal (incluindo as seções da Wiki)
+    const revealItems = document.querySelectorAll('.service-item, .wiki-section, .cv-card');
+    revealItems.forEach(item => observer.observe(item));
 
     // Scroll Reveal para Ícones de Skills
     const skillIcons = document.querySelectorAll('.skills-stack img');
@@ -330,11 +327,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const cvCard = document.querySelector('.cv-card');
-    if (cvCard) observer.observe(cvCard);
-
     // Efeito de brilho palavra por palavra + Chance de Glitch no Hover
-    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label, .cv-info p, .cv-info h3');
+    const textElements = document.querySelectorAll('.about-content p, .service-item p, .service-item h3, .skill-category p, .skill-label, .cv-info p, .cv-info h3, .project-content p, .project-content li');
     textElements.forEach(el => {
         const words = el.innerText.split(' ');
         el.innerHTML = words.map(word => `<span class="glow-word">${word}</span>`).join(' ');
