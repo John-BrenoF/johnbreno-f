@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('theme-transitioning');
         
         // Dispara o glitch do canvas se ele existir para reforçar a "falha"
-        if (typeof triggerGlitch === 'function') triggerGlitch();
+        if (window.triggerGlitch) window.triggerGlitch();
 
         document.body.classList.toggle('light-mode');
         const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
@@ -346,6 +346,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- WIKI SCROLL SPY ---
+    const wikiSections = document.querySelectorAll('.wiki-section');
+    const wikiLinks = document.querySelectorAll('.wiki-nav a');
+    
+    if (wikiSections.length > 0 && wikiLinks.length > 0) {
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    wikiLinks.forEach(link => {
+                        link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+                    });
+                }
+            });
+        }, { threshold: 0.3, rootMargin: "-10% 0px -70% 0px" });
+        wikiSections.forEach(section => spyObserver.observe(section));
+    }
+
     // Lógica do Cartão 3D Interativo
     const cardContainer = document.querySelector('.card-3d-container');
     const card = document.getElementById('interactive-card');
@@ -505,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
             animate();
-        }
+        };
 
         function scheduleNextGlitch() {
             const delay = Math.random() * 5000 + 2000; // Entre 2 e 7 segundos
@@ -519,6 +537,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const carousel = document.getElementById('project-carousel');
     const prevBtn = document.getElementById('prev-btn');
     const nextBtn = document.getElementById('next-btn');
+    const serviceItems = document.querySelectorAll('.service-item');
 
     if (carousel && prevBtn && nextBtn) {
         // Novo Observer para lidar com o foco (blur/unblur) dos cards no carrossel
