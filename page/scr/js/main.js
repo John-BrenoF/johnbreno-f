@@ -665,6 +665,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const snakeCanvas = document.getElementById('snake-canvas');
     const ctx = snakeCanvas.getContext('2d');
     const scoreEl = document.getElementById('snake-score');
+    const gameCountdownEl = document.getElementById('game-countdown'); // Novo elemento para o countdown
 
     let pythonClicks = 0;
     let gameInterval;
@@ -692,15 +693,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.triggerGlitch) window.triggerGlitch();
         resetGame();
         
+        gameCountdownEl.style.display = 'inline'; // Mostra o elemento do countdown
         let countdown = 3;
-        scoreEl.textContent = `INICIANDO EM: ${countdown}...`;
+        gameCountdownEl.textContent = `INICIANDO EM: ${countdown}...`;
         
         const countdownInterval = setInterval(() => {
             countdown--;
             if (countdown > 0) {
-                scoreEl.textContent = `INICIANDO EM: ${countdown}...`;
+                gameCountdownEl.textContent = `INICIANDO EM: ${countdown}...`;
             } else {
                 clearInterval(countdownInterval);
+                gameCountdownEl.style.display = 'none'; // Esconde o elemento do countdown
                 updateScoreDisplay();
                 isGameOver = false;
                 main();
