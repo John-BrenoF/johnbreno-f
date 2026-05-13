@@ -687,6 +687,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+// Helper para gerar som de bip via código
+const playBeep = (freq = 440, duration = 0.1) => {
+    try {
+        const context = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = context.createOscillator();
+        const gainNode = context.createGain();
+        oscillator.connect(gainNode);
+        gainNode.connect(context.destination);
+        oscillator.frequency.value = freq;
+        gainNode.gain.value = 0.1;
+        oscillator.start();
+        setTimeout(() => oscillator.stop(), duration * 1000);
+    } catch (e) { console.warn("Audio não suportado"); }
+};
+
     function openGame() {
         gameModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -763,9 +778,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function drawSnake() {
+    // Lógica para detectar se a cobra vai morrer no próximo movimento
+    const nextHead = { x: snake[0].x + dx, y: snake[0].y + dy };
+    const willDie = nextHead.x < 0 || 
+                    nextHead.x > snakeCanvas.width - 20 || 
+                    nextHead.y < 0 || 
+                    nextHead.y > snakeCanvas.height - 20 ||
+                    snake.some(part => part.x === nextHead.x && part.y === nextHead.y);
+
         snake.forEach((part, index) => {
-            // Cores: Cabeça branca pura, corpo em tons de cinza claro
+        if (willDie) {
+            // Muda para vermelho se o Game Over for iminente
+            ctx.fillStyle = index === 0 ? "#ff0000" : "#aa0000";
+        } else {
             ctx.fillStyle = index === 0 ? "#ffffff" : "#999999";
+        }
             ctx.fillRect(part.x, part.y, 20, 20);
 
             // Detalhes internos mantendo o estilo quadrado
@@ -862,8 +889,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener("keydown", (e) => {
-        // Lógica de reiniciar com Espaço
-        if (isGameOver && (e.key === ' ' || e.code === 'Space')) {
+        // Lógica de reiniciar com Espaço (no Game Over) ou tecla 'r' (a qualquer momento com o jogo aberto)
+        if ((isGameOver && (e.key === ' ' || e.code === 'Space')) || (gameModal.style.display === 'flex' && e.key.toLowerCase() === 'r')) {
             e.preventDefault();
             openGame();
             return;
