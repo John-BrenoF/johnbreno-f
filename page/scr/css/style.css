@@ -1,6 +1,6 @@
 /* Reset e Base */
 :root {
-    --primary-color: #00d4ff;
+    --primary-color: #ffffff;
     --secondary-color: #8a2be2;
     --bg-color: #000000;
     --text-color: #ffffff;
@@ -11,7 +11,7 @@
     --particle-color: rgba(255, 255, 255, 0.4);
     --glass-bg: rgba(0, 0, 0, 0.8);
     --boot-bg: #000;
-    --accent-glow: rgba(0, 212, 255, 0.5);
+    --accent-glow: rgba(255, 255, 255, 0.2);
     --card-face-overlay: radial-gradient(circle, transparent 20%, #000000 120%);
     --qr-bg: #000;
 }
@@ -22,13 +22,13 @@ body.light-mode {
     --text-gray: #5a5a5a;
     --card-bg: #ffffff;
     --card-border: rgba(0, 0, 0, 0.08);
-    --flashlight-color: rgba(0, 212, 255, 0.1);
+    --flashlight-color: rgba(0, 0, 0, 0.05);
     --particle-color: rgba(0, 0, 0, 0.1);
     --glass-bg: rgba(230, 230, 230, 0.8);
-    --accent-glow: rgba(0, 212, 255, 0.2);
+    --accent-glow: rgba(0, 0, 0, 0.1);
     --card-face-overlay: none; /* Remove a fumaça no modo claro */
     --qr-bg: #fff;
-    --primary-color: #0088cc; /* Azul mais profundo para leitura */
+    --primary-color: #000000; 
     --secondary-color: #6a1b9a;
 }
 
@@ -1413,6 +1413,80 @@ body.light-mode .service-item.focused {
     padding-left: 10px;
     font-weight: 700;
     text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Snake Game Styles */
+.game-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 50000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(15px);
+}
+
+.game-window {
+    background: #050505;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 0 30px var(--accent-glow);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: 'Changa', monospace;
+}
+
+.game-header {
+    background: var(--card-bg);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--card-border);
+}
+
+.terminal-title {
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #ff0055;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.game-body {
+    padding: 20px;
+    background: #000;
+}
+
+#snake-canvas {
+    background: #020202;
+    display: block;
+    border: 1px solid #111;
+    image-rendering: pixelated;
+}
+
+.game-footer {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-gray);
+    font-size: 0.8rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--card-border);
+}
+
+#snake-score {
+    color: #fff;
+}
+
+.game-hint {
+    opacity: 0.6;
 }
 
 .wiki-section {
