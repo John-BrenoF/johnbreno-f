@@ -1459,6 +1459,19 @@ body.light-mode .service-item.focused {
     cursor: pointer;
 }
 
+/* Efeito de Tremida para o Jogo */
+.game-window.shake-effect {
+    animation: game-shake 0.15s ease-out;
+}
+
+@keyframes game-shake {
+    0% { transform: translate(0); }
+    25% { transform: translate(-3px, 0); }
+    50% { transform: translate(3px, 0); }
+    75% { transform: translate(-2px, 0); }
+    100% { transform: translate(0); }
+}
+
 .game-body {
     padding: 20px;
     background: #000;

@@ -675,6 +675,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let score = 0;
     let highScore = localStorage.getItem('snakeHighScore') || 0;
     let changingDirection = false;
+    let isGameOver = false; // Nova variável para controlar o estado do jogo
+    let snakeParticles = [];
 
     pythonTrigger.addEventListener('click', () => {
         pythonClicks++;
@@ -687,10 +689,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function openGame() {
         gameModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        showNotification("SISTEMA_INFO: EXECUTANDO SNAKE.EXE");
         if (window.triggerGlitch) window.triggerGlitch();
         resetGame();
-        main();
+        
+        let countdown = 3;
+        scoreEl.textContent = `INICIANDO EM: ${countdown}...`;
+        
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            if (countdown > 0) {
+                scoreEl.textContent = `INICIANDO EM: ${countdown}...`;
+            } else {
+                clearInterval(countdownInterval);
+                updateScoreDisplay();
+                isGameOver = false;
+                main();
+            }
+        }, 1000);
     }
 
     closeGameBtn.addEventListener('click', () => {
@@ -698,6 +713,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = '';
         clearTimeout(gameInterval);
     });
+
 
     function resetGame() {
         snake = [
@@ -708,13 +724,16 @@ document.addEventListener('DOMContentLoaded', () => {
         dx = 20;
         dy = 0;
         createFood();
+        snakeParticles = [];
         updateScoreDisplay();
+        isGameOver = false; // Reseta o estado de Game Over
     }
 
     function updateScoreDisplay() {
         scoreEl.textContent = `SCORE: ${score.toString().padStart(3, '0')} | BEST: ${highScore.toString().padStart(3, '0')}`;
     }
 
+    let gameSpeed = 100; // Velocidade inicial
     function main() {
         if (didGameEnd()) {
             showNotification("GAME_OVER: CONEXÃO PERDIDA");
@@ -722,16 +741,19 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        gameInterval = setTimeout(function onTick() {
+        // Aumenta a velocidade conforme a pontuação sobe
+        gameSpeed = Math.max(40, 100 - (Math.floor(score / 50) * 10));
+
+        gameInterval = setTimeout(function gameLoop() {
             changingDirection = false;
             clearCanvas();
+            updateAndDrawParticles();
             drawFood();
             advanceSnake();
             drawSnake();
-            main();
-        }, 100);
+            if (!isGameOver) main(); // Continua o loop apenas se o jogo não acabou
+        }, gameSpeed);
     }
-
     function clearCanvas() {
         ctx.fillStyle = "#000"; // Cor de fundo do jogo
         ctx.fillRect(0, 0, snakeCanvas.width, snakeCanvas.height);
@@ -760,9 +782,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function createSnakeParticle(x, y) {
+        // Cria pequenos "pixels" de fumaça
+        for (let i = 0; i < 6; i++) {
+            snakeParticles.push({
+                x: x + 10,
+                y: y + 10,
+                vx: (Math.random() - 0.5) * 4,
+                vy: (Math.random() - 0.5) * 4,
+                size: Math.floor(Math.random() * 4) + 2,
+                life: 1.0,
+                decay: Math.random() * 0.1 + 0.05
+            });
+        }
+    }
+
+    function updateAndDrawParticles() {
+        for (let i = snakeParticles.length - 1; i >= 0; i--) {
+            const p = snakeParticles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life -= p.decay;
+            if (p.life <= 0) {
+                snakeParticles.splice(i, 1);
+                continue;
+            }
+            ctx.fillStyle = `rgba(255, 255, 255, ${p.life * 0.5})`;
+            ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size);
+        }
+    }
+
     function advanceSnake() {
         const head = { x: snake[0].x + dx, y: snake[0].y + dy };
         snake.unshift(head);
+        
+        // Gera rastro na posição que a cabeça acabou de deixar
+        createSnakeParticle(snake[1].x, snake[1].y);
+
         const didEatFood = snake[0].x === food.x && snake[0].y === food.y;
         if (didEatFood) {
             score += 10;
@@ -778,6 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function didGameEnd() {
+        if (snake.length === 0) return false;
         for (let i = 4; i < snake.length; i++) {
             if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) return true;
         }
@@ -802,6 +859,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.addEventListener("keydown", (e) => {
+        // Lógica de reiniciar com Espaço
+        if (isGameOver && (e.key === ' ' || e.code === 'Space')) {
+            e.preventDefault();
+            openGame();
+            return;
+        }
+
         if (changingDirection) return;
         const keyPressed = e.key.toLowerCase();
         const goingUp = dy === -20;
