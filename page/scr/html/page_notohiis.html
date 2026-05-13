@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notohiis | John Breno F</title>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .project-details {
+            padding: 80px 10%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 40px;
+        }
+        .project-content h2 {
+            margin: 40px 0 20px;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 10px;
+            font-family: 'Changa', sans-serif;
+        }
+        .project-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .project-content th, .project-content td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .project-content th {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .project-content pre {
+            background: #0d1117;
+            color: #c9d1d9;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: monospace;
+            border: 1px solid var(--card-border);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-family: 'Changa', sans-serif;
+            transition: 0.3s;
+        }
+        .back-link:hover { text-shadow: 0 0 10px var(--primary-color); }
+    </style>
+</head>
+<body>
+    <div id="flashlight-overlay"></div>
+    <canvas id="glitch-canvas"></canvas>
+
+    <nav class="top-bar">
+        <div class="logo-wrapper">
+            <a href="../../../index.html" style="text-decoration: none;"><div class="logo">John Breno F</div></a>
+            <div id="cat-easter-egg" class="cat-pixel"></div>
+        </div>
+        <li class="theme-switch" style="list-style: none;">
+            <button id="theme-toggle" class="theme-btn" title="Alternar Modo">
+                <svg class="theme-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+            </button>
+        </li>
+    </nav>
+
+    <main class="project-details">
+        <a href="../../../index.html" class="back-link">❮ VOLTAR AO PORTFÓLIO</a>
+        
+        <div class="project-header">
+            <img src="https://raw.githubusercontent.com/John-BrenoF/notohiis/main/midia/icon/nth.png" width="220" alt="Notohiis Logo">
+            <h1>🖊️ Notohiis Editor</h1>
+            <p><strong>Simples por padrão.<br>Extremamente poderoso quando você precisa.</strong></p>
+            <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python">
+                <img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License MIT">
+                <img src="https://img.shields.io/badge/Version-0.2--alpha-orange" alt="Version">
+            </div>
+        </div>
+
+        <div class="project-content">
+            <p><strong>Notohiis</strong> é um editor de texto minimalista, rápido e altamente modular, feito em Python. Projetado para quem valoriza foco, beleza e controle total sobre sua ferramenta de escrita e codificação.</p>
+
+            <h2>🚀 Filosofia</h2>
+            <p>O editor deve desaparecer para que <strong>você</strong> brilhe.</p>
+            <ul>
+                <li><strong>Minimalismo intencional</strong> — Interface limpa, sem distrações.</li>
+                <li><strong>Modularidade extrema</strong> — Core separado da interface.</li>
+                <li><strong>Extensibilidade total</strong> — Tudo que falta, você cria com plugins em Python.</li>
+            </ul>
+
+            <h2>✨ Destaques</h2>
+            <table>
+                <thead>
+                    <tr><th>Recurso</th><th>Descrição</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>🎨 <strong>Tematização Total</strong></td><td>Temas completos via arquivos JSON simples</td></tr>
+                    <tr><td>🔌 <strong>Sistema de Plugins</strong></td><td>Carregamento dinâmico e fácil de criar</td></tr>
+                    <tr><td>🌐 <strong>Híbrido (GUI + TUI)</strong></td><td>Mesma lógica no Desktop (CustomTkinter) e no Terminal (Textual)</td></tr>
+                    <tr><td>🛠️ <strong>Focado em Dev</strong></td><td>Git nativo, suporte a múltiplas linguagens e syntax highlighting</td></tr>
+                    <tr><td>⚡ <strong>Performance</strong></td><td>Leve e rápido, mesmo com vários plugins</td></tr>
+                </tbody>
+            </table>
+
+            <h2>📸 Screenshots</h2>
+            <img style="width: 100%; border-radius: 8px;" src="https://github.com/user-attachments/assets/de38c5cb-29aa-44f6-ab69-e6452276b867" alt="Notohiis Screenshot">
+
+            <h2>🛠️ Como Instalar e Usar</h2>
+            <pre><code># Clone o repositório
+git clone https://github.com/John-BrenoF/notohiis.git
+cd notohiis
+
+# Dê permissão e execute
+chmod +x notohiis.sh
+./notohiis.sh</code></pre>
+
+            <p><strong>Dica:</strong> Na primeira execução, o script cria automaticamente o alias <code>nth</code>, permitindo abrir o editor de qualquer lugar com: <code>nth</code></p>
+
+            <h2>🧩 Turbinando com Plugins</h2>
+            <p>Personalizar o Notohiis é extremamente simples. Basta colocar seus arquivos Python na pasta <code>plugins/</code> que eles são carregados automaticamente.</p>
+            <p><strong>Exemplos de plugins disponíveis:</strong></p>
+            <ul>
+                <li><strong>Auto-close</strong> — Fecha parênteses, colchetes e aspas automaticamente</li>
+                <li><strong>Color Preview</strong> — Visualiza cores hexadecimais em tempo real</li>
+                <li><strong>Git Status</strong> — Integração completa com Git na sidebar e status bar</li>
+                <li><strong>Markdown Live Preview</strong></li>
+                <li><strong>Zen Mode</strong> — Foco total</li>
+            </ul>
+
+            <h2>📂 Estrutura do Projeto</h2>
+            <pre><code>notohiis/
+├── core/          # Lógica principal e sistema de plugins
+├── ui/            # Interface Gráfica (CustomTkinter)
+├── tui/           # Interface Terminal (Textual)
+├── plugins/       # Seus plugins vão aqui
+├── midia/         # Logos e screenshots
+├── themes/        # Temas em JSON
+└── notohiis.sh    # Script de inicialização inteligente</code></pre>
+
+            <div style="text-align: center; margin-top: 50px; padding: 30px; border-top: 1px solid var(--card-border); color: var(--text-gray);">
+                <p><strong>Notohiis — Versão 0.2-alpha</strong><br><em>"Frango com batata doce" Edition</em></p>
+                <p>Feito com ❤️ e Python por <strong>John Breno</strong>.</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="notification-container"></div>
+    <script src="../js/main.js"></script>
+</body>
+</html>

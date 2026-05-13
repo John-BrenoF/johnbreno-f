@@ -219,7 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => bootLoader.style.display = 'none', 800);
     }
 
-    runBootSequence();
+    // Só executa o boot se estivermos na página principal (onde o loader existe)
+    if (bootLoader) runBootSequence();
 
     // Sistema de tratamento de erro para imagens e estatísticas externas
     const handleImageError = (event) => {

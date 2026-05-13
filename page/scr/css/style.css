@@ -1061,7 +1061,6 @@ body.light-mode .service-item.focused {
 .btn {
     display: inline-block;
     padding: 8px 16px;
-    margin-top: 15px;
     border: 1px solid var(--text-color);
     color: var(--text-color);
     text-decoration: none;
@@ -1070,6 +1069,14 @@ body.light-mode .service-item.focused {
     letter-spacing: 1px;
     transition: 0.3s;
     border-radius: 4px;
+}
+
+.project-links {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Seção de Currículo */
