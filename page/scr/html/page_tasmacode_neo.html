@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasmacode-neo Wiki | John Breno F</title>
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .project-details { padding: 60px 5%; flex: 1; }
+        .project-header { text-align: left; margin-bottom: 60px; padding-bottom: 40px; border-bottom: 1px solid var(--card-border); }
+        .project-content h2 { margin: 40px 0 20px; border-bottom: 1px solid var(--card-border); padding-bottom: 10px; font-family: 'Changa', sans-serif; }
+        .back-link { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 30px; color: var(--primary-color); text-decoration: none; font-family: 'Changa', sans-serif; transition: 0.3s; }
+        .back-link:hover { text-shadow: 0 0 10px var(--primary-color); }
+        video { width: 100%; border-radius: 8px; border: 1px solid var(--card-border); margin: 20px 0; }
+        .wiki-section ul { padding-left: 20px; margin: 15px 0; }
+        .wiki-section li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <div id="flashlight-overlay"></div>
+    <canvas id="glitch-canvas"></canvas>
+
+    <nav class="top-bar">
+        <div class="logo-wrapper">
+            <a href="../../../index.html" style="text-decoration: none;"><div class="logo">John Breno F</div></a>
+            <div id="cat-easter-egg" class="cat-pixel"></div>
+        </div>
+        <li class="theme-switch" style="list-style: none;">
+            <button id="theme-toggle" class="theme-btn" title="Alternar Modo">
+                <svg class="theme-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></svg>
+            </button>
+        </li>
+    </nav>
+
+    <div class="wiki-wrapper">
+        <aside class="wiki-sidebar">
+            <h4>TASMACODE WIKI</h4>
+            <ul class="wiki-nav">
+                <li><a href="#intro">O que é?</a></li>
+                <li><a href="#funcionamento">Funcionamento</a></li>
+                <li><a href="#plugins">Plugins</a></li>
+                <li><a href="#recursos">Recursos</a></li>
+                <li><a href="#testes">Testes Reais</a></li>
+                <li><a href="#contato">Contato</a></li>
+                <li style="margin-top: 30px; border-top: 1px solid var(--card-border); padding-top: 20px;">
+                    <a href="https://github.com/John-BrenoF/TASMACODE-neo.git" target="_blank" class="btn highlight-btn" style="font-size: 0.7rem; width: 100%; text-align: center;">REPO_GITHUB</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="project-details">
+            <a href="../../../index.html" class="back-link">❮ VOLTAR AO PORTFÓLIO</a>
+            
+            <div class="project-header wiki-section" id="intro">
+                <div align="center" style="margin-bottom: 30px;">
+                    <img src="https://raw.githubusercontent.com/John-BrenoF/TASMACODE-neo/main/midia/VID-20260215-WA0163(1).gif" alt="Logo Tasmacode" width="300">
+                </div>
+                <h1 class="typewriter-text">Tasma Code Editor</h1>
+                <p style="font-size: 1.2rem; color: var(--primary-color); margin-top: 10px;"><strong>O editor robusto para o terminal moderno.</strong></p>
+                <p style="margin-top: 20px;">O Tasma Code Editor é um editor de texto robusto baseado em terminal (TUI), desenvolvido em Python utilizando a biblioteca <code>curses</code>. Ele combina a leveza de editores de console com funcionalidades modernas de IDEs.</p>
+                <div style="margin-top: 20px;">
+                    <a href="https://github.com/John-BrenoF/TASMACODE-neo.git" target="_blank" class="btn highlight-btn">ACESSAR REPOSITÓRIO</a>
+                </div>
+            </div>
+
+            <div class="project-content">
+                <section class="wiki-section" id="funcionamento">
+                    <h2>⚙️ Como Funciona</h2>
+                    <p>O sistema opera através de um loop principal que orquestra a interação entre os componentes:</p>
+                    <ul>
+                        <li><strong>Gerenciamento de Estado:</strong> O <code>TabManager</code> controla os buffers de arquivos abertos, enquanto a classe <code>Editor</code> lida com a manipulação de texto e histórico.</li>
+                        <li><strong>Interface (UI):</strong> A classe <code>UI</code> desenha o estado, gerenciando janelas, syntax highlighting e a disposição em abas ou split view.</li>
+                        <li><strong>Event Loop:</strong> Captura entradas de teclado e mouse em tempo real para despacho imediato de comandos.</li>
+                    </ul>
+                </section>
+
+                <section class="wiki-section" id="plugins">
+                    <h2>🧩 Sistema de Plugins</h2>
+                    <p>O Tasma possui uma arquitetura modular <strong>desacoplada</strong>. Plugins podem ser adicionados sem alterar o core do sistema.</p>
+                    <h3>Arquitetura</h3>
+                    <ul>
+                        <li><strong>Descoberta:</strong> O <code>PluginManager</code> escaneia o diretório <code>plugins/</code> automaticamente.</li>
+                        <li><strong>Injeção de Contexto:</strong> Através da função <code>register(context)</code>, o editor fornece acesso a subsistemas como UI, Tab Manager e Comandos Globais.</li>
+                    </ul>
+                </section>
+
+                <section class="wiki-section" id="recursos">
+                    <h2>🚀 Funcionalidades Principais</h2>
+                    <ul>
+                        <li><strong>Edição:</strong> Syntax highlighting, autocomplete, macros e múltiplos cursores.</li>
+                        <li><strong>Navegação:</strong> Fuzzy finder, árvore de arquivos e sistema de abas.</li>
+                        <li><strong>Visualização:</strong> Suporte nativo a Split Vertical e Horizontal.</li>
+                        <li><strong>Ferramentas:</strong> Linter integrado e terminal embutido.</li>
+                    </ul>
+                </section>
+
+                <section class="wiki-section" id="testes">
+                    <h2>📹 Testes em Campo</h2>
+                    
+                    <h3>Ambiente Ubuntu (Gnome Terminal)</h3>
+                    <video controls muted>
+                        <source src="https://github.com/user-attachments/assets/edf08a34-43d9-4dcf-a4c2-5aa24bc3e20c" type="video/mp4">
+                        Seu navegador não suporta vídeos.
+                    </video>
+
+                    <h3>Ambiente KDE Plasma (Konsole)</h3>
+                    <video controls muted>
+                        <source src="https://github.com/user-attachments/assets/8038a951-90a4-478d-9ab8-a7ef99f0c124" type="video/mp4">
+                        Seu navegador não suporta vídeos.
+                    </video>
+                </section>
+
+                <section class="wiki-section" id="contato">
+                    <h2>📧 Contato</h2>
+                    <div class="cv-card" style="opacity: 1; transform: none; max-width: 500px; padding: 30px; margin: 0 auto;">
+                        <p>Dúvidas técnicas ou contribuições?</p>
+                        <a href="mailto:tasmacode@protonmail.com" class="contact-link">tasmacode@protonmail.com</a>
+                    </div>
+                </section>
+
+                <div style="text-align: center; margin-top: 50px; padding: 30px; border-top: 1px solid var(--card-border); color: var(--text-gray);">
+                    <p><strong>Tasmacode-neo Terminal</strong><br><em>The Power of Curses</em></p>
+                    <p>Feito por <strong>John Breno</strong>.</p>
+                    <p style="margin-top: 15px;"><a href="https://github.com/John-BrenoF/TASMACODE-neo.git" target="_blank" class="btn">Ver Repositório no GitHub</a></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="notification-container"></div>
+    <script src="../js/main.js"></script>
+</body>
+</html>
