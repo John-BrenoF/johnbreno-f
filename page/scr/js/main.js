@@ -28,12 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     themeToggle.addEventListener('click', () => {
-        // Adiciona efeito de glitch visual na transição
-        document.body.classList.add('theme-transitioning');
-        
-        // Dispara o glitch do canvas se ele existir para reforçar a "falha"
-        if (window.triggerGlitch) window.triggerGlitch();
-
         document.body.classList.toggle('light-mode');
         const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
         localStorage.setItem('theme', theme);
@@ -249,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.requestAnimationFrame(() => {
                 document.body.style.setProperty('--mouse-x', `${mouseX}px`);
                 document.body.style.setProperty('--mouse-y', `${mouseY}px`);
+                document.body.style.setProperty('--scroll-y', `${window.scrollY}px`);
 
                 const particleContainer = document.getElementById('cv-particles');
                 if (particleContainer) {
@@ -260,6 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             ticking = true;
         }
+    });
+
+    window.addEventListener('scroll', () => {
+        document.body.style.setProperty('--scroll-y', `${window.scrollY}px`);
     });
 
     // --- EFEITO TYPEWRITER UNIVERSAL ---
@@ -294,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Coletamos todos os itens que precisam de scroll reveal (incluindo as seções da Wiki)
-    const revealItems = document.querySelectorAll('.service-item, .wiki-section, .cv-card');
+    const revealItems = document.querySelectorAll('.welcome-section, .service-item, .wiki-section, .cv-card');
     revealItems.forEach(item => observer.observe(item));
 
     // Scroll Reveal para Ícones de Skills
@@ -333,17 +332,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const words = el.innerText.split(' ');
         el.innerHTML = words.map(word => `<span class="glow-word">${word}</span>`).join(' ');
         
-        el.querySelectorAll('.glow-word').forEach(wordSpan => {
-            wordSpan.addEventListener('mouseenter', () => {
-                // 15% de chance de disparar um glitch visual na palavra
-                if (Math.random() < 0.15) {
-                    wordSpan.classList.add('word-glitch-active');
-                    setTimeout(() => {
-                        wordSpan.classList.remove('word-glitch-active');
-                    }, 350);
-                }
-            });
-        });
     });
 
     // --- WIKI SCROLL SPY ---
@@ -432,106 +420,6 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.transform = `rotateX(0deg) rotateY(0deg)`;
         });
     });
-
-    // --- SISTEMA DE GLITCH ---
-    const canvas = document.getElementById('glitch-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let width, height;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        const colors = [
-            'rgba(138, 43, 226, 0.5)', // Roxo mais forte
-            'rgba(255, 0, 127, 0.5)',   // Rosa
-            'rgba(255, 255, 255, 0.4)', // Branco
-            'rgba(128, 128, 128, 0.3)'  // Cinza
-        ];
-
-        // Desenha "fatias" de interferência em vez de ruído total
-        function drawDataCorruption() {
-            const lines = isGlitching ? 15 : 2;
-            for (let i = 0; i < lines; i++) {
-                ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-                const y = Math.random() * height;
-                const h = Math.random() * 3;
-                // Linhas horizontais longas e finas
-                ctx.fillRect(0, y, width, h);
-            }
-            
-            if (isGlitching) {
-                // Pequenos blocos de "bits" perdidos
-                for (let i = 0; i < 20; i++) {
-                    ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-                    ctx.fillRect(Math.random() * width, Math.random() * height, Math.random() * 30, Math.random() * 30);
-                }
-            }
-        }
-
-        function drawGlitches() {
-            const glitchCount = Math.floor(Math.random() * 5) + 2;
-            for (let i = 0; i < glitchCount; i++) {
-                ctx.fillStyle = colors[Math.floor(Math.random() * colors.length)];
-                const x = Math.random() * width;
-                const y = Math.random() * height;
-                const w = width * (Math.random() * 0.5 + 0.5);
-                const h = Math.random() * 20 + 5;
-                
-                if (Math.random() < 0.3) {
-                    ctx.fillRect(0, y, width, h);
-                } else {
-                    ctx.fillRect(x, y, w * 0.4, h);
-                }
-            }
-        }
-
-        let isGlitching = false;
-
-        function triggerGlitch() {
-            isGlitching = true;
-            
-            // Aplica tremida no corpo
-            if (Math.random() > 0.4) {
-                document.body.classList.add('shake-effect');
-                setTimeout(() => document.body.classList.remove('shake-effect'), 150);
-            }
-
-            const duration = Math.random() * 200 + 100;
-            const startTime = Date.now();
-
-            function animate() {
-                if (Date.now() - startTime < duration) {
-                    ctx.clearRect(0, 0, width, height);
-                    drawDataCorruption();
-                    drawGlitches();
-                    
-                    if (Math.random() > 0.8) {
-                        ctx.translate((Math.random() - 0.5) * 15, 0);
-                    }
-                    
-                    requestAnimationFrame(animate);
-                } else {
-                    ctx.setTransform(1, 0, 0, 1, 0, 0);
-                    ctx.clearRect(0, 0, width, height);
-                    isGlitching = false;
-                    scheduleNextGlitch();
-                }
-            }
-            animate();
-        };
-
-        function scheduleNextGlitch() {
-            const delay = Math.random() * 5000 + 2000; // Entre 2 e 7 segundos
-            setTimeout(triggerGlitch, delay);
-        }
-
-        scheduleNextGlitch();
-    }
 
     // Lógica do Carrossel de Projetos
     const carousel = document.getElementById('project-carousel');
@@ -628,6 +516,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Geração de partículas para a seção de boas-vindas
+    const welcomeParticleContainer = document.getElementById('welcome-particles');
+    if (welcomeParticleContainer) {
+        for (let i = 0; i < 80; i++) {
+            const p = document.createElement('div');
+            p.className = 'welcome-particle';
+            
+            const size = Math.random() * 2 + 1;
+            p.style.width = `${size}px`;
+            p.style.height = `${size}px`;
+            p.style.left = `${Math.random() * 100}%`;
+            p.style.top = `${Math.random() * 100}%`;
+            
+            p.style.setProperty('--move-x', `${(Math.random() - 0.5) * 300}px`);
+            p.style.setProperty('--move-y', `${(Math.random() - 0.5) * 300}px`);
+            
+            p.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            p.style.animationDelay = `${Math.random() * 5}s`;
+            
+            welcomeParticleContainer.appendChild(p);
+        }
+    }
+
     // --- LOGICA DO EASTER EGG (GATINHO) ---
     const logoElement = document.querySelector('.logo');
     const catElement = document.getElementById('cat-easter-egg');
@@ -705,7 +616,6 @@ const playBeep = (freq = 440, duration = 0.1) => {
     function openGame() {
         gameModal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
-        if (window.triggerGlitch) window.triggerGlitch();
         resetGame();
         
         gameCountdownEl.style.display = 'inline'; // Mostra o elemento do countdown
@@ -755,7 +665,6 @@ const playBeep = (freq = 440, duration = 0.1) => {
     function main() {
         if (didGameEnd()) {
             showNotification("GAME_OVER: CONEXÃO PERDIDA");
-            if (window.triggerGlitch) window.triggerGlitch();
             return;
         }
 
