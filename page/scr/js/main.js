@@ -258,7 +258,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('scroll', () => {
-        document.body.style.setProperty('--scroll-y', `${window.scrollY}px`);
+        const scrollY = window.scrollY;
+        document.body.style.setProperty('--scroll-y', `${scrollY}px`);
+        
+        // Efeito Parallax no texto de boas-vindas
+        const welcomeParallax = scrollY * 0.4;
+        document.body.style.setProperty('--welcome-parallax', `-${welcomeParallax}px`);
     });
 
     // --- EFEITO TYPEWRITER UNIVERSAL ---
